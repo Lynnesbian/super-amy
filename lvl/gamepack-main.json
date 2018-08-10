@@ -1,0 +1,38 @@
+{
+	"name":"Main Story",
+	"description":"The main story for Super Amy!",
+	"acts": [
+		{
+			"name":"(name of act 1)",
+			"levels":[
+				{
+					"name":"First level!",
+					"bgColour": [0.3, 0.8, 1],
+					"map": {
+						"fg": [
+							["nil", "nil", "nil", "nil", "nil", "nil", "nil"],
+							["nil", "nil", "nil", "nil", "nil", "nil", "nil"],
+							["nil", "nil", "nil", "nil", "nil", "nil", "nil"],
+							["nil", "nil", "nil", "nil", "nil", "nil", "nil"],
+							["Grass", "Grass", "Grass", "nil", "Grass", "Grass", "Grass"],
+							["DirtSurface", "DirtSurface", "DirtSurface", "nil", "DirtSurface", "DirtSurface", "DirtSurface"],
+							["DirtBlock", "DirtBlock", "DirtBlock", "nil", "DirtBlock", "DirtBlock", "DirtBlock"]
+						],
+						"bg": [
+							["nil", "nil", "CloudB", "nil", "nil", "nil", "nil"],
+							["nil", "nil", "nil", "nil", "nil", "nil", "nil"],
+							["nil", "nil", "nil", "nil", "nil", "nil", "nil"],
+							["nil", "nil", "nil", "nil", "nil", "nil", "nil"],
+							["nil", "nil", "nil", "nil", "nil", "nil", "nil"],
+							["nil", "nil", "nil", "nil", "nil", "nil", "nil"],
+							["nil", "nil", "nil", "nil", "nil", "nil", "nil"]
+						]
+					},
+					"obj": [
+							["Amy", 2.5, 4], ["Slime", 6, 5]
+						]
+				}
+			]
+		}
+	]
+}
