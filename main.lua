@@ -27,6 +27,20 @@ metatables['img'].__index = function(table, key)
 end
 setmetatable(cache["img"], metatables['img'])
 
+metatables["hitboxes"] = {}
+metatables['hitboxes'].__index = function(tbl, key)
+	if key == nil then
+		error("Tried to access cache['hitboxes'] using a nil key!")
+	end
+	args = {}
+	for d in string.gmatch(key, "%d+") do
+		table.insert(args, d)
+	end
+	tbl[key] = Hitbox:new(unpack(args))
+	return tbl[key]
+end
+setmetatable(cache["hitboxes"], metatables['hitboxes'])
+
 --REQUIRES
 require("functions")
 require("classes")

@@ -182,7 +182,7 @@ function Tile:initialize(name, bg, x, y, hitbox)
 	self.stateClusters = {}
 	self.stateCluster = nil
 	self.baseImg = nil
-	self.defaultHitbox = hitbox or Hitbox:new(0, 0, 32, 32)
+	self.defaultHitbox = hitbox or getHitbox(0, 0, 32, 32)
 	self.hitbox = self.defaultHitbox
 	table.insert(metadata['tileNames'], self.name)
 	self.imgFile = iif(bg, "backgrounds.png", "tiles.png")
