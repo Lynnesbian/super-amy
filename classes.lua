@@ -130,6 +130,7 @@ function Creature:initialize(x, y, hitbox)
 	self.speed = 0.2
 	self.defaultHitbox = hitbox
 	self.hitbox = hitbox
+	self.collidingWith = {}
 end
 
 function Creature:drawArgs(screenX, screenY, scaleX, scaleY)
@@ -141,7 +142,8 @@ end
 function Creature:movingLeft()
 	return (self.xVelocity < 0)
 end
-function Creature:checkCollision(level)
+function Creature:checkCollision(level, hitbox)
+	if hitbox == nil then hitbox = self.hitbox end
 	collidingWith = {}
 	for row, rData in pairs(level:getMap()['fg']) do
 		for column, tile in pairs(rData) do
@@ -164,6 +166,9 @@ function Creature:checkCollision(level)
 		end
 	end
 	return collidingWith
+end
+function Creature:updateCollision(level)
+	self.collidingWith = self:checkCollision(level)
 end
 function Creature:processPhysics(dt)
 	--TODO: incorporate dt somehow ;)
@@ -270,20 +275,16 @@ function GamePack:initialize(name, description, acts)
 	self.acts = acts or {}
 end
 function GamePack:getString()
-
+	--convert gamepack to json
 end
 function GamePack:save(path)
-
+	--write json
 end
-function GamePack:load(path)
-
-end
-function GamePack:loadMainPack(gamePackID)
-	file = io.open(string.format("lvl/gamepack-%s.json", gamePackID))
-	if not file then
-		error(string.format("Couldn't find GamePack for %s!", gamePackID))
+function GamePack:load(path, data)
+	--convert json to gamepack
+	if path ~= nil then
+		--read json file
 	end
-	data = json.decode(file:read("*a"))
 	self.name = data['name']
 	self.description = data["description"]
 	self.acts = {}
@@ -294,6 +295,14 @@ function GamePack:loadMainPack(gamePackID)
 		end
 		table.insert(self.acts, GameAct:new(act['name'], levels))
 	end
+end
+function GamePack:loadMainPack(gamePackID)
+	file = io.open(string.format("lvl/gamepack-%s.json", gamePackID))
+	if not file then
+		error(string.format("Couldn't find GamePack for %s!", gamePackID))
+	end
+	data = json.decode(file:read("*a"))
+	self:load(nil, data)
 end
 function GamePack:getLevel(act, level)
 	return self.acts[act].levels[level]
