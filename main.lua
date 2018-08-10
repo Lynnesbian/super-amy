@@ -57,7 +57,7 @@ amy = currentLevel:getAmy()
 function love.update(dt)
 	for k,v in pairs(controls) do
 		if love.keyboard.isDown(k) then
-			handleKeypress(v)
+			handleCommand(v)
 		end
 	end
 	for key, creature in pairs(getAllInstancesOf(Creature, currentLevel:getObjects())) do

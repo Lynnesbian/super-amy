@@ -181,7 +181,7 @@ function Creature:processPhysics(dt, level)
 	--TODO: incorporate dt somehow ;)
 	self:groundingCheck(level)
 	if not self.grounded then
-		self.yVelocity = self.yVelocity + 6 * dt
+		self.yVelocity = self.yVelocity + 15 * dt
 	else
 		if self.yVelocity > 0 then self.yVelocity = 0 end
 	end
@@ -196,13 +196,18 @@ function Creature:processPhysics(dt, level)
 	self.xVelocity = pullTowards(self.xVelocity, 0, 4 * dt)
 
 	local oldX = self.x
-	local xcol = #self:checkCollision(level)
-	self.x = self.x + self.xVelocity * dt
-	if #self:checkCollision(level) ~= xcol then
+	local oldcol = #self:checkCollision(level)
+	self.x = round(self.x + self.xVelocity * dt, 1/32)
+	if #self:checkCollision(level) ~= oldcol then
 		self.x = oldX
 		self.xVelocity = 0
 	end
-	self.y = self.y + self.yVelocity * dt
+	local oldY = self.y
+	self.y = round(self.y + self.yVelocity * dt, 1/32)
+	if #self:checkCollision(level) ~= oldcol then
+		self.y = oldY
+		self.yVelocity = 0
+	end
 
 end
 function Creature:moveInDirection(direction)
@@ -225,6 +230,9 @@ function Creature:moveInDirection(direction)
 	else
 		error("Unknown direction: ", direction)
 	end
+end
+function Creature:jump()
+	if self.grounded then self.yVelocity = -8 end
 end
 
 Tile = class("Tile")

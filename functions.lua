@@ -57,12 +57,8 @@ function iif(condition, x, y) --NOTE: both x and y are always evaluated!
 	if condition then return x else return y end
 end
 
-function round(x) --lua...
-  if x>=0 then
- 		return math.floor(x+0.5) 
- 	else 
- 		return math.ceil(x-0.5)
- 	end
+function round(x, multiple) --lua...
+  return math.floor((x + multiple / 2) / multiple) * multiple
 end
 
 function isBetween(var, lower, upper, inclusive)
@@ -90,10 +86,12 @@ end
 
 --GAME-SPECIFIC STUFF
 
-function handleKeypress(key)
+function handleCommand(cmd)
   -- print(key)
-  if contains({"up", "down", "left", "right"}, key) then
-    amy:moveInDirection(key)
+  if contains({"up", "down", "left", "right"}, cmd) then
+    amy:moveInDirection(cmd)
+  elseif cmd == "jump" then
+    amy:jump()
   end
 end
 
