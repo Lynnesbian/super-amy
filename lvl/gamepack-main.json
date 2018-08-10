@@ -14,7 +14,7 @@
 							["nil", "nil", "nil", "nil", "nil", "nil", "nil"],
 							["nil", "nil", "nil", "nil", "nil", "nil", "nil"],
 							["nil", "nil", "nil", "nil", "nil", "nil", "nil"],
-							["Grass", "Grass", "Grass", "nil", "Grass", "Grass", "Grass"],
+							["Brick", "Grass", "Grass", "nil", "Grass", "Grass", "Grass"],
 							["DirtSurface", "DirtSurface", "DirtSurface", "nil", "DirtSurface", "DirtSurface", "DirtSurface"],
 							["DirtBlock", "DirtBlock", "DirtBlock", "nil", "DirtBlock", "DirtBlock", "DirtBlock"]
 						],

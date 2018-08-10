@@ -195,7 +195,13 @@ function Creature:processPhysics(dt, level)
 
 	self.xVelocity = pullTowards(self.xVelocity, 0, 4 * dt)
 
+	local oldX = self.x
+	local xcol = #self:checkCollision(level)
 	self.x = self.x + self.xVelocity * dt
+	if #self:checkCollision(level) ~= xcol then
+		self.x = oldX
+		self.xVelocity = 0
+	end
 	self.y = self.y + self.yVelocity * dt
 
 end
