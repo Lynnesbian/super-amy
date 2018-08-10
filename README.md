@@ -1,5 +1,6 @@
 # Super Amy
 ## By Lynnear Software!
+This game is **still in early alpha**, so don't expect much from it.
 
 I'll add a logo here when I have one c;
 
