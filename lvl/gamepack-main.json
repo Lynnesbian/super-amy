@@ -1,6 +1,9 @@
 {
 	"name":"Main Story",
 	"description":"The main story for Super Amy!",
+	"compressionTable": [
+		"nil", "Brick", "Grass", "DirtSurface", "DirtBlock", "CloudB"
+	],
 	"acts": [
 		{
 			"name":"(name of act 1)",
@@ -10,22 +13,22 @@
 					"bgColour": [0.3, 0.8, 1],
 					"map": {
 						"fg": [
-							["nil", "nil", "nil", "nil", "nil", "nil", "nil"],
-							["nil", "nil", "nil", "nil", "nil", "nil", "nil"],
-							["nil", "nil", "nil", "nil", "nil", "nil", "nil"],
-							["nil", "nil", "nil", "nil", "nil", "nil", "nil"],
-							["Brick", "Grass", "Grass", "nil", "Grass", "Grass", "Grass"],
-							["DirtSurface", "DirtSurface", "DirtSurface", "nil", "DirtSurface", "DirtSurface", "DirtSurface"],
-							["DirtBlock", "DirtBlock", "DirtBlock", "nil", "DirtBlock", "DirtBlock", "DirtBlock"]
+							[1, 1, 1, 1, 1, 1, 1],
+							[1, 1, 1, 1, 1, 1, 1],
+							[1, 1, 1, 1, 1, 1, 1],
+							[1, 1, 1, 1, 1, 1, 1],
+							[2, 3, 3, 1, 3, 3, 3],
+							[4, 4, 4, 1, 4, 4, 4],
+							[5, 5, 5, 1, 5, 5, 5]
 						],
 						"bg": [
-							["nil", "nil", "CloudB", "nil", "nil", "nil", "nil"],
-							["nil", "nil", "nil", "nil", "nil", "nil", "nil"],
-							["nil", "nil", "nil", "nil", "nil", "nil", "nil"],
-							["nil", "nil", "nil", "nil", "nil", "nil", "nil"],
-							["nil", "nil", "nil", "nil", "nil", "nil", "nil"],
-							["nil", "nil", "nil", "nil", "nil", "nil", "nil"],
-							["nil", "nil", "nil", "nil", "nil", "nil", "nil"]
+							[1, 1, 6, 1, 1, 1, 1],
+							[1, 1, 1, 1, 1, 1, 1],
+							[1, 1, 1, 1, 1, 1, 1],
+							[1, 1, 1, 1, 1, 1, 1],
+							[1, 1, 1, 1, 1, 1, 1],
+							[1, 1, 1, 1, 1, 1, 1],
+							[1, 1, 1, 1, 1, 1, 1]
 						]
 					},
 					"obj": [

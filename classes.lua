@@ -313,7 +313,7 @@ function GamePack:load(path, data)
 	for k, act in pairs(data['acts']) do
 		levels = {}
 		for l, level in pairs(act['levels']) do
-			table.insert(levels, GameLevel:new(level['name'], level['map'], level['obj'], level['bgColour']))
+			table.insert(levels, GameLevel:new(level, data['compressionTable']))
 		end
 		table.insert(self.acts, GameAct:new(act['name'], levels))
 	end
@@ -337,15 +337,22 @@ function GameAct:initialize(name, levels)
 end
 
 GameLevel = class("GameLevel")
-function GameLevel:initialize(name, map, obj, bgColour)
-	self.name = name
-	self.mapPlan = map
+function GameLevel:initialize(level, compressionTable)
+	self.name = level['name']
+	self.mapPlan = level['map']
+	for category, tbl in pairs(level['map']) do
+		for row, rData in pairs(tbl) do
+			for column, digit in pairs(rData) do
+				self.mapPlan[category][row][column] = compressionTable[digit]
+			end
+		end
+	end
 	self.map = {}
 	self.map['fg'] = {}
 	self.map['bg'] = {}
-	self.objectsPlan = obj
+	self.objectsPlan = level['obj']
 	self.objects = {}
-	self.bgColour = bgColour or {0, 0, 0}
+	self.bgColour = level['bgColour'] or {0, 0, 0}
 end
 function GameLevel:prepare()
 	--loads the map as objects rather than strings

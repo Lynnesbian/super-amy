@@ -6,7 +6,7 @@ require("classes")
 
 Amy = class("Amy", Creature)
 function Amy:initialize(x, y)
-	local hb = getHitbox(5, 9, 21, 55)
+	local hb = getHitbox(12, 9, 15, 55)
 	Creature.initialize(self, x, y, hb)
 	self.name = "Amy"
 	stateSet = {
