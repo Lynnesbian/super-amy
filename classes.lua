@@ -2,6 +2,7 @@
 --the various classes
 local class = require("lib.middleclass")
 local json = require('lib.json')
+require("functions")
 
 ----- MIXINS -----
 states = {
@@ -144,18 +145,18 @@ function Creature:movingLeft()
 end
 function Creature:checkCollision(level, hitbox)
 	if hitbox == nil then hitbox = self.hitbox end
-	collidingWith = {}
+	local collidingWith = {}
+	sx = self.x + hitbox.xOffset / 32
+	sy = self.y + hitbox.yOffset / 32
 	for row, rData in pairs(level:getMap()['fg']) do
 		for column, tile in pairs(rData) do
 			if tile ~= 0 and tile.solid then
 				tx = tile.x + tile.hitbox.xOffset / 32
 				ty = tile.y + tile.hitbox.yOffset / 32
-				sx = self.x + self.hitbox.xOffset / 32
-				sy = self.y + self.hitbox.yOffset / 32
 
-				if tx < sx + self.hitbox.width / 32
+				if tx < sx + hitbox.width / 32
 				and tx + tile.hitbox.width / 32 > sx
-				and ty + tile.hitbox.yOffset / 32 < sy + self.hitbox.height / 32
+				and ty + tile.hitbox.yOffset / 32 < sy + hitbox.height / 32
 				and ty + tile.hitbox.height / 32 > sy
 				then
 					-- collided!
@@ -170,12 +171,19 @@ end
 function Creature:updateCollision(level)
 	self.collidingWith = self:checkCollision(level)
 end
-function Creature:processPhysics(dt)
+function Creature:groundingCheck(level)
+	local feet = getHitbox(self.hitbox.xOffset + 1, self.hitbox.yOffset + self.hitbox.height, self.hitbox.width - 2, 1)
+	-- print(string.format("%dx%d (%d, %d)", feet.width, feet.height, feet.xOffset + self.x * 32, feet.yOffset + self.y * 32))
+	local feetCollision = self:checkCollision(level, feet)
+	self.grounded = #feetCollision > 0
+end
+function Creature:processPhysics(dt, level)
 	--TODO: incorporate dt somehow ;)
+	self:groundingCheck(level)
 	if not self.grounded then
-		self.yVelocity = self.yVelocity + 3 * dt
+		self.yVelocity = self.yVelocity + 6 * dt
 	else
-		if self.yVelocity < 0 then self.yVelocity = 0 end
+		if self.yVelocity > 0 then self.yVelocity = 0 end
 	end
 
 	if self.xVelocity > self.xvCap then
@@ -261,7 +269,7 @@ end
 
 Hitbox = class("Hitbox")
 function Hitbox:initialize(xOffset, yOffset, width, height)
-	--these values are in pixels rather than multiples of 32!
+	--these values are in pixels rather than (pixels/32)!
 	self.xOffset = xOffset
 	self.yOffset = yOffset
 	self.height = height

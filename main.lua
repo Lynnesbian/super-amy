@@ -61,7 +61,7 @@ function love.update(dt)
 		end
 	end
 	for key, creature in pairs(getAllInstancesOf(Creature, currentLevel:getObjects())) do
-		creature:processPhysics(dt)
+		creature:processPhysics(dt, currentLevel)
 		creature:updateCollision(currentLevel)
 		creature:calculateState()
 		creature:animate(dt)
