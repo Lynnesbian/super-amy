@@ -1,6 +1,7 @@
 {
 	"name":"Main Story",
 	"description":"The main story for Super Amy!",
+	"author":"Lynnear Software",
 	"compressionTable": [
 		"nil", "Brick", "Grass", "DirtSurface", "DirtBlock", "CloudB", "CloudA"
 	],
