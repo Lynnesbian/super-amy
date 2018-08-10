@@ -45,8 +45,8 @@ end
 
 Slime = class("Slime", Creature)
 function Slime:initialize(x, y)
-	local hb = getHitbox(0, 14, 32, 18)
-	Creature.initialize(self, x, y, {hb})
+	local hbs = {getHitbox(2, 19, 28, 13), getHitbox(6, 15, 20, 4)}
+	Creature.initialize(self, x, y, hbs)
 	stateSet = {
 		default = {0},
 		bob = {1},
