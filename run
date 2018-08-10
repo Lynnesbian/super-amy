@@ -1,0 +1,5 @@
+#!/bin/sh
+rm super-amy.love
+git gc
+zip -x nozip/\* -r super-amy.love . 1> /dev/null
+love super-amy.love 2> /dev/null
