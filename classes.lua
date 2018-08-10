@@ -110,7 +110,7 @@ getPosFunction = {
 Creature = class("Creature")
 Creature:include(states)
 Creature:include(getPosFunction)
-function Creature:initialize(x, y, hitbox)
+function Creature:initialize(x, y, hitboxes)
 	self.name = "Unnamed Creature"
 	self.hp = 1
 	self.x = x
@@ -129,9 +129,18 @@ function Creature:initialize(x, y, hitbox)
 	self.xvCap = 5
 	self.yvCap = 15
 	self.speed = 0.2
-	self.defaultHitbox = hitbox
-	self.hitbox = hitbox
+	-- self.defaultHitboxes = hitboxes
+	self.hitboxes = hitboxes
 	self.collidingWith = {}
+	-- self.lowestHitbox = hitboxes[1]
+	local lowest = 0
+	for key, hitbox in pairs(hitboxes) do
+		lowpoint = hitbox.xOffset + hitbox.height
+		if lowpoint > lowest then
+			lowest = lowpoint
+			self.lowestHitbox = hitbox
+		end
+	end
 end
 
 function Creature:drawArgs(screenX, screenY, scaleX, scaleY)
@@ -143,38 +152,39 @@ end
 function Creature:movingLeft()
 	return (self.xVelocity < 0)
 end
-function Creature:checkCollision(level, hitbox)
-	if hitbox == nil then hitbox = self.hitbox end
+function Creature:checkCollision(level, hitboxes)
+	if hitboxes == nil then hitboxes = self.hitboxes end
 	local collidingWith = {}
-	sx = self.x + hitbox.xOffset / 32
-	sy = self.y + hitbox.yOffset / 32
-	for row, rData in pairs(level:getMap()['fg']) do
-		for column, tile in pairs(rData) do
-			if tile ~= 0 and tile.solid then
-				tx = tile.x + tile.hitbox.xOffset / 32
-				ty = tile.y + tile.hitbox.yOffset / 32
+	for key, hitbox in pairs(hitboxes) do
+		sx = self.x + hitbox.xOffset / 32
+		sy = self.y + hitbox.yOffset / 32
+		for row, rData in pairs(level:getMap()['fg']) do
+			for column, tile in pairs(rData) do
+				if tile ~= 0 and tile.solid then
+					tx = tile.x + tile.hitbox.xOffset / 32
+					ty = tile.y + tile.hitbox.yOffset / 32
 
-				if tx < sx + hitbox.width / 32
-				and tx + tile.hitbox.width / 32 > sx
-				and ty + tile.hitbox.yOffset / 32 < sy + hitbox.height / 32
-				and ty + tile.hitbox.height / 32 > sy
-				then
-					-- collided!
-					-- print(string.format("%s (%f, %f) collided with %s (%f, %f)", self.name, self.x, self.y, tile.name, tile.x, tile.y))
-					table.insert(collidingWith, tile)
+					if tx < sx + hitbox.width / 32
+					and tx + tile.hitbox.width / 32 > sx
+					and ty + tile.hitbox.yOffset / 32 < sy + hitbox.height / 32
+					and ty + tile.hitbox.height / 32 > sy
+					then
+						-- collided!
+						-- print(string.format("%s (%f, %f) collided with %s (%f, %f)", self.name, self.x, self.y, tile.name, tile.x, tile.y))
+						table.insert(collidingWith, tile)
+					end
 				end
 			end
 		end
 	end
 	return collidingWith
 end
-function Creature:updateCollision(level)
-	self.collidingWith = self:checkCollision(level)
-end
+-- function Creature:updateCollision(level)
+-- 	self.collidingWith = self:checkCollision(level)
+-- end
 function Creature:groundingCheck(level)
-	local feet = getHitbox(self.hitbox.xOffset + 1, self.hitbox.yOffset + self.hitbox.height, self.hitbox.width - 2, 1)
-	-- print(string.format("%dx%d (%d, %d)", feet.width, feet.height, feet.xOffset + self.x * 32, feet.yOffset + self.y * 32))
-	local feetCollision = self:checkCollision(level, feet)
+	local feet = getHitbox(self.lowestHitbox.xOffset + 1, self.lowestHitbox.yOffset + self.lowestHitbox.height, self.lowestHitbox.width - 2, 1)
+	local feetCollision = self:checkCollision(level, {feet})
 	self.grounded = #feetCollision > 0
 end
 function Creature:processPhysics(dt, level)
