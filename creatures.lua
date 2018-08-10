@@ -35,6 +35,13 @@ function Amy:initialize(x, y)
 	self.hp = 10
 	self.powers = {}
 end
+function Amy:calculateState()
+	if self.xVelocity ~= 0 then
+		self.stateCluster = "run"
+	else
+		self.stateCluster = nil
+	end
+end
 
 Slime = class("Slime", Creature)
 function Slime:initialize(x, y)

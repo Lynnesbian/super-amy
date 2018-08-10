@@ -34,7 +34,6 @@ states = {
 	end,
 	calculateState = function(self)
 		self:setState("default")
-		error("this is supposed to be abstract but i don't think lua has that")
 	end,
 
 	setGraphics = function(self, imgX, imgY, width, height)
@@ -54,6 +53,46 @@ states = {
 			end
 		end
 		self.img = self.baseImg
+	end,
+
+	getImg = function(self)
+		return string.format("%s|%s|%s",self.imgFile, self.name, self.state)
+	end,
+
+	animate = function(self, dt)
+		if self.stateCluster == nil then
+			self.state = "default"
+			return
+		end
+		local validState = false
+		local nextState = false
+		for key, stateInfo in pairs(self.stateClusters[self.stateCluster]) do
+			if nextState then
+				self.state = stateInfo[1]
+				nextState = false
+				break
+			end
+			if self.state == stateInfo[1] then
+				--our current state is in the list of states present in this cluster
+				validState = true
+				self.animationTimer = self.animationTimer + dt
+				if self.animationTimer > stateInfo[2] then
+					nextState = true
+					self.animationTimer = 0
+				end
+			end
+		end 
+
+		if (not validState) or nextState then
+			--either:
+			-- a. our current state is invalid
+			-- b. we're supposed to move to the next state, but we've reached the end of the list
+			--in either case, we should set our state to the first state in this cluster
+			for key, stateInfo in pairs(self.stateClusters[self.stateCluster]) do --TODO: don't use a for loop, that's icky
+				self.state = stateInfo[1]
+				break
+			end
+		end
 	end
 }
 getPosFunction = {
@@ -81,6 +120,7 @@ function Creature:initialize(x, y, hitbox)
 	self.state = "default"
 	self.stateClusters = {}
 	self.stateCluster = nil
+	self.animationTimer = 0
 	self.baseImg = nil
 	self.imgFile = "creatures.png"
 	self.xVelocity = 0
@@ -96,7 +136,7 @@ function Creature:drawArgs(screenX, screenY, scaleX, scaleY)
 	if scaleX == nil then scaleX = 1 end
 	if scaleY == nil then scaleY = scaleX end
 	if cache['img'] == nil then error(":c") end
-	return cache['img']["creatures.png"], cache['sprites'][self.img], screenX, screenY, 0, scaleX, scaleY
+	return cache['img']["creatures.png"], cache['sprites'][self:getImg()], screenX, screenY, 0, scaleX, scaleY
 end
 function Creature:movingLeft()
 	return (self.xVelocity < 0)

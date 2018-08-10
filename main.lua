@@ -63,6 +63,8 @@ function love.update(dt)
 	for key, creature in pairs(getAllInstancesOf(Creature, currentLevel:getObjects())) do
 		creature:processPhysics(dt)
 		creature:checkCollision(currentLevel)
+		creature:calculateState()
+		creature:animate(dt)
 	end
 end
 
@@ -113,9 +115,9 @@ function love.draw()
 	end)
 	love.graphics.setColor(1,0,0)
 	love.graphics.print("FPS: "..love.timer.getFPS(), 10, 20)
-	love.graphics.print(string.format("Amy: %s, %s", amy.x, amy.y), 10, 30)
-	love.graphics.print("x", (amy.x - 1) * 32 * scale, (amy.y - 1) * 32 * scale)
-	love.graphics.setColor(1, 0, 0, 0.5)
-	love.graphics.rectangle("fill", ((amy.x - 1) * 32 + amy.hitbox.xOffset) * scale, ((amy.y - 1) * 32 + amy.hitbox.yOffset) * scale, amy.hitbox.width * scale, amy.hitbox.height * scale)
+	love.graphics.print(string.format("Amy: %s, %s, %s (%s)", amy.x, amy.y, amy.stateCluster, amy.state), 10, 30)
+	-- love.graphics.print("x", (amy.x - 1) * 32 * scale, (amy.y - 1) * 32 * scale)
+	-- love.graphics.setColor(1, 0, 0, 0.5)
+	-- love.graphics.rectangle("fill", ((amy.x - 1) * 32 + amy.hitbox.xOffset) * scale, ((amy.y - 1) * 32 + amy.hitbox.yOffset) * scale, amy.hitbox.width * scale, amy.hitbox.height * scale)
 	love.graphics.setColor(1,1,1)
 end
