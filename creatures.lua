@@ -47,8 +47,26 @@ Slime = class("Slime", Creature)
 function Slime:initialize(x, y)
 	local hb = getHitbox(0, 14, 32, 18)
 	Creature.initialize(self, x, y, hb)
+	stateSet = {
+		default = {0},
+		bob = {1},
+	}
+	stateClusterSet = {
+		idle = {
+			{"default", 0.5},
+			{"bob", 0.5}
+		}
+	}
 	self.name = "Slime"
+	self:initialiseStates(stateSet, stateClusterSet)
 	self:setGraphics(0, 2, 1, 1)
 	self.hp = 2
 	self.powers = {}
+end
+function Slime:calculateState()
+	if self.xVelocity == 0 then
+		self.stateCluster = "idle"
+	else
+		self.stateCluster = nil
+	end
 end
