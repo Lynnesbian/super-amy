@@ -17,4 +17,7 @@ To edit the provided files, you'll need the following:
  - [GIMP](https://www.gimp.org/) v2.10 or later for the .xcf files in `res/img`
  - [DefleMask](http://www.deflemask.com/) for the .dmf files in `res/mus/deflemask`
 
- All of this software is available for Windows, Mac, and Linux, free of charge.
+All of this software is available for Windows, Mac, and Linux, free of charge.
+
+## Licence
+This project is licenced under the MIT licence. For the text of this licence, see "COPYING" in the root directory.
