@@ -142,6 +142,7 @@ function Creature:movingLeft()
 	return (self.xVelocity < 0)
 end
 function Creature:checkCollision(level)
+	collidingWith = {}
 	for row, rData in pairs(level:getMap()['fg']) do
 		for column, tile in pairs(rData) do
 			if tile ~= 0 and tile.solid then
@@ -157,10 +158,12 @@ function Creature:checkCollision(level)
 				then
 					-- collided!
 					-- print(string.format("%s (%f, %f) collided with %s (%f, %f)", self.name, self.x, self.y, tile.name, tile.x, tile.y))
+					table.insert(collidingWith, tile)
 				end
 			end
 		end
 	end
+	return collidingWith
 end
 function Creature:processPhysics(dt)
 	--TODO: incorporate dt somehow ;)

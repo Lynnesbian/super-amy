@@ -43,6 +43,7 @@ tileDirtSurface()
 tileGrass = class("tileGrass", Tile)
 function tileGrass:initialize(x, y)
 	Tile.initialize(self, "tileGrass", false, x, y)
+	self.solid = false
 	self:setGraphics(1, 0, 1, 1)
 end
 tileGrass()
