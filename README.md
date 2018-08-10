@@ -1,7 +1,7 @@
 # Super Amy
 **By Lynnear Software!**
 
-I'll add a logo here when I have one c;
+![Super Amy's logo!](https://raw.githubusercontent.com/deleeciousCheeps/super-amy/master/res/img/logo.png "Super Amy's logo!")
 
 This game is **still in early alpha**, so don't expect much from it.
 
