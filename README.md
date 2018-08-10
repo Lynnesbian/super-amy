@@ -19,6 +19,11 @@ To edit the provided files, you'll need the following:
 
 All of this software is available for Windows, Mac, and Linux, free of charge.
 
+## Running the game
+After installing LÖVE, there are two ways to run the game.
+ - Compress the entire directory as a zip and rename it to "super-amy.love", then run `love super-amy.love`
+ - Open the directory in your terminal/command prompt and type `love .`
+
 ## Licence
 This project is licenced under the [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) licence. The text of this licence is available in the "COPYING" file in the root directory of this project.
 
