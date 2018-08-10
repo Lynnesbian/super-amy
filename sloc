@@ -1,0 +1,5 @@
+#!/bin/bash
+output=`cloc . --csv --exclude-dir nozip,lib --include-lang Lua`
+filecount=`echo $output|awk {'print $1'}`
+sloc=`echo $output|grep -oP "\\d* *\$"`
+echo You\'ve written $sloc significant lines of Lua code across $filecount files\!
