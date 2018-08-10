@@ -20,4 +20,6 @@ To edit the provided files, you'll need the following:
 All of this software is available for Windows, Mac, and Linux, free of charge.
 
 ## Licence
-This project is licenced under the MIT licence. For the text of this licence, see "COPYING" in the root directory.
+This project is licenced under the [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) licence. The text of this licence is available in the "COPYING" file in the root directory of this project.
+
+![CC BY 4.0](https://licensebuttons.net/l/by/4.0/88x31.png "CC BY 4.0")
