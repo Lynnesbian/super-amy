@@ -126,8 +126,8 @@ function Creature:initialize(x, y, hitbox)
 	self.imgFile = "creatures.png"
 	self.xVelocity = 0
 	self.yVelocity = 0
-	self.xvCap = 2
-	self.yvCap = 2
+	self.xvCap = 5
+	self.yvCap = 15
 	self.speed = 0.2
 	self.defaultHitbox = hitbox
 	self.hitbox = hitbox
@@ -187,10 +187,10 @@ function Creature:processPhysics(dt, level)
 	end
 
 	if self.xVelocity > self.xvCap then
-		self.xVelocity = pullTowards(self.xVelocity, self.xvCap, 0.5 * dt)
+		self.xVelocity = pullTowards(self.xVelocity, self.xvCap, 10 * dt)
 	end
 	if self.yVelocity > self.yvCap then
-		self.yVelocity = pullTowards(self.yVelocity, self.yvCap, 0.5 * dt)
+		self.yVelocity = pullTowards(self.yVelocity, self.yvCap, 10 * dt)
 	end
 
 	self.xVelocity = pullTowards(self.xVelocity, 0, 4 * dt)

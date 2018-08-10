@@ -80,7 +80,7 @@ function love.load()
 			radius = 3
 		},
 		crt = {
-			distortionFactor = {1, 1}
+			distortionFactor = {1.025, 1.025}
 		},
 	}
 end
