@@ -62,7 +62,7 @@ states = {
 
 	animate = function(self, dt)
 		if self.stateCluster == nil then
-			self.state = "default"
+			-- self.state = "default"
 			return
 		end
 		local validState = false

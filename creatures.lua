@@ -18,6 +18,7 @@ function Amy:initialize(x, y)
 		runE = {5},
 		runF = {6},
 		runG = {7},
+		falling = {8},
 	}
 	stateClusterSet = {
 		run = {
@@ -36,9 +37,15 @@ function Amy:initialize(x, y)
 	self.powers = {}
 end
 function Amy:calculateState()
+	if not self.grounded then
+		self.state = "falling"
+		self.stateCluster = nil
+		return
+	end
 	if self.xVelocity ~= 0 then
 		self.stateCluster = "run"
 	else
+		self.state = "default"
 		self.stateCluster = nil
 	end
 end
