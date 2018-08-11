@@ -153,6 +153,7 @@ end
 function Creature:movingLeft()
 	return (self.xVelocity < 0)
 end
+
 function Creature:checkCollision(level, hitboxes)
 	if hitboxes == nil then hitboxes = self.hitboxes end
 	local collidingWith = {}
@@ -189,11 +190,12 @@ function Creature:groundingCheck(level)
 end
 function Creature:processPhysics(dt, level)
 	--TODO: incorporate dt somehow ;)
+	--TODO: clean this up, it's really messy
 	self:groundingCheck(level)
 	if not self.grounded then
 		self.yVelocity = self.yVelocity + 15 * dt
 	else
-		if self.yVelocity > 0 then self.yVelocity = 0 end
+		if self.yVelocity > 0 then self.yVelocity = 0 end --stop falling if you're on the ground
 	end
 
 	if math.abs(self.xVelocity) > self.xvCap then
@@ -207,7 +209,7 @@ function Creature:processPhysics(dt, level)
 		self.yVelocity = pullTowards(self.yVelocity, dir * self.yvCap, 10 * dt)
 	end
 
-	self.xVelocity = pullTowards(self.xVelocity, 0, 4 * dt)
+	if self.grounded then self.xVelocity = pullTowards(self.xVelocity, 0, 4 * dt) end
 
 	local oldX = self.x
 	local oldcol = #self:checkCollision(level)
