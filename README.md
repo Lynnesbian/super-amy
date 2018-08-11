@@ -15,7 +15,7 @@ Install git, and use this command:
 Don't forget the `--recursive`! Otherwise, the game will fail to run.
 
 ## Necessary software
-To run this game, you'll need [LÖVE](https://love2d.org/) version 11.1. Versions below 11 won't work, and later versions might introduce breaking changes.
+To run this game, you'll need [LÖVE](https://love2d.org/) version 11.1. Versions below 11 won't work, and later versions might introduce breaking changes. 11.0 *should* be fine, but I haven't tested it.
 
 To edit the provided files, you'll need the following:
  - [GIMP](https://www.gimp.org/) v2.10 or later for the .xcf files in `res/img`
