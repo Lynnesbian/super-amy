@@ -14,12 +14,6 @@ states = {
 	end,
 	initialiseStates = function(self, stateSet, stateClusterSet)
 		self.usesStates = true
-		--example stateset
-		-- stateSet = {
-		-- 	name    offset X, Y
-		-- 	runA = {1},
-		-- 	runB = {2}
-		-- }
 		--for example, if you want the state "falling" to use the sprite at self.x + 3, self.y + 2, do this:
 		-- stateSet = {
 		-- 	falling = {3, 2}
@@ -170,7 +164,6 @@ function Creature:checkCollision(level, hitboxes)
 					and ty + tile.hitbox.height / 32 > sy
 					then
 						-- collided!
-						-- print(string.format("%s (%f, %f) collided with %s (%f, %f)", self.name, self.x, self.y, tile.name, tile.x, tile.y))
 						table.insert(collidingWith, tile)
 					end
 				end
@@ -249,13 +242,10 @@ Tile = class("Tile")
 Tile:include(states)
 Tile:include(getPosFunction)
 function Tile:initialize(name, bg, x, y, hitbox)
-	self.name = name
+	self.name, self.bg, self.x, self.y = name, bg, x, y
 	self.solid = true
-	self.bg = bg
 	self.bouncy = false
 	self.slippery = false
-	self.x = x
-	self.y = y
 	self.usesStates = false
 	self.states = {default={0}}
 	self.state = "default"
@@ -282,13 +272,6 @@ function Tile:drawArgs(screenX, screenY, scaleX, scaleY) --TODO: mixin?
 	if scaleY == nil then scaleY = scaleX end
 	if cache['img'] == nil then error(":c") end
 	return cache['img'][self:getImgFile()], cache['sprites'][self.img], screenX, screenY, 0, scaleX, scaleY
-end
-function Tile:getPos()
-	pos = {
-		['x'] = self.x,
-		['y'] = self.y
-	}
-	return pos
 end
 
 Hitbox = class("Hitbox")

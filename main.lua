@@ -49,11 +49,13 @@ require("tiles")
 require("creatures")
 require("controls")
 
+--temp stuff
 mainGP = GamePack:new()
 mainGP:loadMainPack("main")
 local currentLevel = mainGP:getLevel(1, 1)
 currentLevel:prepare()
 amy = currentLevel:getAmy()
+--temp stuff
 
 function love.update(dt)
 	for k,v in pairs(controls) do
@@ -74,7 +76,7 @@ function love.load()
 	if true or not love.filesystem.exists("settings.json") then --remove "true or" when releasing!
 		love.filesystem.write("settings.json", love.filesystem.read("default-settings.json"))
 	end
-	settings = json.decode(love.filesystem.read("settings.json"))
+	settings = json.decode(love.filesystem.read("settings.json")) --todo: if this fails, copy the default
 	shaders = moonshine(moonshine.effects.chromasep).chain(moonshine.effects.vignette).chain(moonshine.effects.crt)
 	shaders.parameters = {
 		chromasep = {
