@@ -83,7 +83,7 @@ states = {
 			-- a. our current state is invalid
 			-- b. we're supposed to move to the next state, but we've reached the end of the list
 			--in either case, we should set our state to the first state in this cluster
-			for key, stateInfo in pairs(self.stateClusters[self.stateCluster]) do --TODO: don't use a for loop, that's icky
+			for key, stateInfo in pairs(self.stateClusters[self.stateCluster]) do --HACK: don't use a for loop, that's icky
 				self.state = stateInfo[1]
 				break
 			end
