@@ -6,7 +6,7 @@ function love.conf(t)
   t.modules.joystick = false
   t.modules.audio = true
   t.modules.keyboard = true
-  t.modules.event = false
+  t.modules.event = true
   t.modules.image = true
   t.modules.graphics = true
   t.modules.timer = true
