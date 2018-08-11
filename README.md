@@ -35,7 +35,7 @@ After installing LÖVE, there are two ways to run the game.
 - Compress the entire directory as a zip and rename it to "super-amy.love", then run `love super-amy.love`
 - Open the directory in your terminal/command prompt and type `love .`
 
-## Licence
+## Licencing info
 If you're just planning on playing the game, you don't need to worry about this section. If you're planning on using some of Super Amy's assets or code for your own project, make sure you're familiar with the terms of the licence.
 
 ### Super Amy
