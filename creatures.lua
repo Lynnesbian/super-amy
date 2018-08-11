@@ -1,6 +1,6 @@
 --CREATURES.LUA
 --the creatures (amy, enemies, etc)
-local class = require("lib.middleclass")
+local class = require("lib.middleclass.middleclass")
 require("functions")
 require("classes")
 

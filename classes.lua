@@ -1,7 +1,7 @@
 --CLASSES.LUA
 --the various classes
-local class = require("lib.middleclass")
-local json = require('lib.json')
+local class = require("lib.middleclass.middleclass")
+local json = require('lib.json.json')
 require("functions")
 
 ----- MIXINS -----

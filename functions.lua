@@ -1,6 +1,6 @@
 --FUNCTIONS.LUA
 --most of the functions used by the game
-local class = require("lib.middleclass")
+local class = require("lib.middleclass.middleclass")
 --BASIC STUFF
 
 function shuffle(tbl) --https://gist.github.com/Uradamus/10323382

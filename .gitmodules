@@ -1,3 +1,12 @@
 [submodule "lib/moonshine"]
 	path = lib/moonshine
 	url = https://github.com/vrld/moonshine
+[submodule "lib/profile"]
+	path = lib/profile
+	url = https://bitbucket.org/itraykov/profile.lua/
+[submodule "lib/json"]
+	path = lib/json
+	url = https://github.com/rxi/json.lua
+[submodule "lib/middleclass"]
+	path = lib/middleclass
+	url = https://github.com/kikito/middleclass

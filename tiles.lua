@@ -1,6 +1,6 @@
 --TILES.LUA
 --tiles. you're gonna see the word "tile" a lot
-local class = require("lib.middleclass")
+local class = require("lib.middleclass.middleclass")
 require("functions")
 require("classes")
 

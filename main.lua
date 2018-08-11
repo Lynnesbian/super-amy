@@ -1,7 +1,7 @@
 --MAIN.LUA
 --the basic stuff, load, draw, etc.
 --Super Amy - Copyright 2018 Lynnear Software!
-local class = require("lib.middleclass")
+local class = require("lib.middleclass.middleclass")
 local moonshine = require('lib.moonshine')
 
 --SUPER IMPORTANT INITIAL STUFF THAT *MUST* GO FIRST
