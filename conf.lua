@@ -1,18 +1,18 @@
 function love.conf(t)
-  t.title = "Super Amy"     -- The title of the window the game is in (string)
-  t.author = "Lynne"        -- The author of the game (string)
-  t.version = "11.1"           -- The LÖVE version this game was made for (number)
-  t.identity = nil            -- The name of the save directory (string)
-  t.release = false           -- Enable release mode (boolean)
-  t.console = false           -- Attach a console (boolean, Windows only)
-  t.modules.joystick = true   -- Enable the joystick module (boolean)
-  t.modules.audio = true      -- Enable the audio module (boolean)
-  t.modules.keyboard = true   -- Enable the keyboard module (boolean)
-  t.modules.event = true      -- Enable the event module (boolean)
-  t.modules.image = true      -- Enable the image module (boolean)
-  t.modules.graphics = true   -- Enable the graphics module (boolean)
-  t.modules.timer = true      -- Enable the timer module (boolean)
-  t.modules.mouse = true      -- Enable the mouse module (boolean)
-  t.modules.sound = true      -- Enable the sound module (boolean)
-  t.modules.physics = false   -- Enable the physics module (boolean)
+  t.title = "Super Amy"
+  t.author = "Lynne"
+  t.version = "11.1"
+  t.identity = "super-amy"
+  t.release = false
+  t.console = false
+  t.modules.joystick = false
+  t.modules.audio = true
+  t.modules.keyboard = true
+  t.modules.event = true
+  t.modules.image = true
+  t.modules.graphics = true
+  t.modules.timer = true
+  t.modules.mouse = true
+  t.modules.sound = true
+  t.modules.physics = false
 end
