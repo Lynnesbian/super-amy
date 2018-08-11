@@ -57,6 +57,7 @@ currentLevel:prepare()
 amy = currentLevel:getAmy()
 --temp stuff
 camera = Camera:new()
+camera.x, camera.y = 5, -5
 
 function love.update(dt)
 	for k,v in pairs(controls) do
