@@ -18,7 +18,9 @@ function Amy:initialize(x, y)
 		runE = {5},
 		runF = {6},
 		runG = {7},
-		falling = {8},
+		fallA = {8},
+		fallB = {9},
+		fallC = {10},
 	}
 	stateClusterSet = {
 		run = {
@@ -29,6 +31,11 @@ function Amy:initialize(x, y)
 			{"runE", 0.1},
 			{"runF", 0.1},
 			{"runG", 0.1},
+		},
+		fall = {
+			{"fallA", 0.1},
+			{"fallB", 0.1},
+			{"fallC", 0.1}
 		}
 	}
 	self:initialiseStates(stateSet, stateClusterSet)
@@ -38,8 +45,7 @@ function Amy:initialize(x, y)
 end
 function Amy:calculateState()
 	if (not self.grounded) and self.yVelocity > 8 then
-		self.state = "falling"
-		self.stateCluster = nil
+		self.stateCluster = "fall"
 		return
 	end
 	if self.xVelocity ~= 0 then
