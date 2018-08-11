@@ -74,7 +74,7 @@ function love.load()
 		-- print(k, v)
 	end
 	love.window.setMode(1024, 768, {resizable = true})
-	shaders = moonshine(moonshine.effects.chromasep).chain(moonshine.effects.crt)
+	shaders = moonshine(moonshine.effects.chromasep).chain(moonshine.effects.vignette).chain(moonshine.effects.crt)
 	shaders.parameters = {
 		chromasep = {
 			radius = 3
@@ -82,6 +82,10 @@ function love.load()
 		crt = {
 			distortionFactor = {1.025, 1.025}
 		},
+		vignette = {
+			radius = 0.9,
+			opacity = 0.25
+		}
 	}
 end
 
