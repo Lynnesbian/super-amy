@@ -3,10 +3,11 @@
 --Super Amy - Copyright 2018 Lynnear Software!
 local class = require("lib.middleclass.middleclass")
 local moonshine = require('lib.moonshine')
+local json = require("lib.json.json")
 
 --SUPER IMPORTANT INITIAL STUFF THAT *MUST* GO FIRST
 love.graphics.setDefaultFilter("nearest", "nearest", 1)
-scale = 2
+settings = {}
 metadata = {}
 for k,cat in pairs({"tileNames"}) do
 	metadata[cat] = {}
@@ -69,10 +70,6 @@ function love.update(dt)
 end
 
 function love.load()
-	-- print(ss:getQuad():getViewport())
-	for k, v in pairs(metadata['tileNames']) do
-		-- print(k, v)
-	end
 	love.window.setMode(1024, 768, {resizable = true})
 	shaders = moonshine(moonshine.effects.chromasep).chain(moonshine.effects.vignette).chain(moonshine.effects.crt)
 	shaders.parameters = {
@@ -87,6 +84,10 @@ function love.load()
 			opacity = 0.25
 		}
 	}
+	if true or not love.filesystem.exists("settings.json") then --remove "true or" when releasing!
+		love.filesystem.write("settings.json", love.filesystem.read("default-settings.json"))
+	end
+	settings = json.decode(love.filesystem.read("settings.json"))
 end
 
 function love.draw()
@@ -105,7 +106,7 @@ function love.draw()
 			for row, rData in pairs(map[catName]) do
 				for column, tile in pairs(rData) do
 					if tile ~= 0 then
-						love.graphics.draw(tile:drawArgs((scale * 32) * (tile:getPos()['x'] - 1), (scale * 32) * (tile:getPos()['y'] - 1), scale))
+						love.graphics.draw(tile:drawArgs((settings['graphics']['scale'] * 32) * (tile:getPos()['x'] - 1), (settings['graphics']['scale'] * 32) * (tile:getPos()['y'] - 1), settings['graphics']['scale']))
 					end
 				end
 			end
@@ -113,15 +114,15 @@ function love.draw()
 
 		--objects
 		for key, obj in pairs(currentLevel:getObjects()) do
-			love.graphics.draw(obj:drawArgs((scale * 32) * (obj:getPos()['x'] - 1), (scale * 32) * (obj:getPos()['y'] - 1), scale))
+			love.graphics.draw(obj:drawArgs((settings['graphics']['scale'] * 32) * (obj:getPos()['x'] - 1), (settings['graphics']['scale'] * 32) * (obj:getPos()['y'] - 1), settings['graphics']['scale']))
 		end
 
 	end)
 	love.graphics.setColor(1,0,0)
 	love.graphics.print("FPS: "..love.timer.getFPS(), 10, 20)
 	love.graphics.print(string.format("Amy: %s, %s, %s (%s)", amy.x, amy.y, amy.stateCluster, amy.state), 10, 30)
-	-- love.graphics.print("x", (amy.x - 1) * 32 * scale, (amy.y - 1) * 32 * scale)
+	-- love.graphics.print("x", (amy.x - 1) * 32 * settings['graphics']['scale'], (amy.y - 1) * 32 * settings['graphics']['scale'])
 	-- love.graphics.setColor(1, 0, 0, 0.5)
-	-- love.graphics.rectangle("fill", ((amy.x - 1) * 32 + amy.hitbox.xOffset) * scale, ((amy.y - 1) * 32 + amy.hitbox.yOffset) * scale, amy.hitbox.width * scale, amy.hitbox.height * scale)
+	-- love.graphics.rectangle("fill", ((amy.x - 1) * 32 + amy.hitbox.xOffset) * settings['graphics']['scale'], ((amy.y - 1) * 32 + amy.hitbox.yOffset) * settings['graphics']['scale'], amy.hitbox.width * settings['graphics']['scale'], amy.hitbox.height * settings['graphics']['scale'])
 	love.graphics.setColor(1,1,1)
 end
