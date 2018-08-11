@@ -96,5 +96,5 @@ function handleCommand(cmd)
 end
 
 function getHitbox(xOffset, yOffset, width, height)
-  return cache['hitboxes'][string.format("%d, %d, %d, %d", xOffset, yOffset, width, height)]
+  return cache['hitboxes'][string.format("%d,%d,%d,%d", xOffset, yOffset, width, height)]
 end
