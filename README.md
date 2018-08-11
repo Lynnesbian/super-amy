@@ -41,14 +41,13 @@ If you're just planning on playing the game, you don't need to worry about this 
 ### Super Amy
 The source code of this project, **not** including all music and graphics, and also **not** including the supplied libraries, is licenced under the [MPL 2.0](https://www.mozilla.org/media/MPL/2.0/index.txt) licence. The text of this licence is available in the "COPYING" file in the root directory of this project.
 
+The assets used in this project -- that is, the music and graphics, but **not** the supplied libraries, and **not** the source code -- are available under the [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) licence. The text of this licence is available in the "asset-licence.txt" file in the "res" directory of this project.
+
+![CC BY 4.0](https://licensebuttons.net/l/by/4.0/88x31.png "CC BY 4.0")
+
 ### Libraries used
 This project makes use of the following libraries:
 - vrld's [Moonshine](https://github.com/vrld/moonshine) ([MIT Licence](https://github.com/vrld/moonshine#license))
 - kikito's [Middleclass](https://github.com/kikito/middleclass) ([MIT Licence](https://github.com/kikito/middleclass/blob/master/MIT-LICENSE.txt))
 - rxi's [json.lua](https://github.com/rxi/json.lua) ([MIT Licence](https://github.com/rxi/json.lua/blob/master/LICENSE))
 - itraykov's [profile.lua](https://bitbucket.org/itraykov/profile.lua/) (No licence provided)
-
-
-The assets used in this project -- that is, the music and graphics, but **not** the supplied libraries, and **not** the source code -- are available under the [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) licence. The text of this licence is available in the "asset-licence.txt" file in the "res" directory of this project.
-
-![CC BY 4.0](https://licensebuttons.net/l/by/4.0/88x31.png "CC BY 4.0")
