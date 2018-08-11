@@ -9,10 +9,13 @@ Super Amy is a 2D platformer game written in LÖVE. You play as Amy on a quest t
 
 This game is **still in early alpha**, so don't expect much from it in the way of playability just yet.
 
-## Cloning this repository
+## Getting the game
+### Cloning this repository
 Install git, and use this command:
 `git clone --recursive -j4 https://github.com/deleeciousCheeps/super-amy`
 Don't forget the `--recursive`! Otherwise, the game will fail to run. This is because the game relies on [several libraries](#libraries-used) which are externally hosted as Git projects.
+### Just running the game
+Click "Clone or download" at the top of the page, and then "Download ZIP". Extract the zip file, and run "love ." in the resulting directory. You'll need to have [LÖVE](https://love2d.org/) version 11.1 installed.
 
 ## Necessary software
 To run this game, you'll need [LÖVE](https://love2d.org/) version 11.1. Versions below 11 won't work, and later versions might introduce breaking changes. 11.0 *should* be fine, but I haven't tested it.
@@ -29,7 +32,7 @@ After installing LÖVE, there are two ways to run the game.
 - Open the directory in your terminal/command prompt and type `love .`
 
 ## Licence
-### Libraries Used
+### Libraries used
 This project makes use of the following libraries:
 - vrld's [Moonshine](https://github.com/vrld/moonshine) ([MIT Licence](https://github.com/vrld/moonshine#license))
 - kikito's [Middleclass](https://github.com/kikito/middleclass) ([MIT Licence](https://github.com/kikito/middleclass/blob/master/MIT-LICENSE.txt))
