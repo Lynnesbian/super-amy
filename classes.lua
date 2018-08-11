@@ -331,7 +331,7 @@ end
 function GamePack:loadMainPack(gamePackID)
 	file, size = love.filesystem.read("string", string.format("lvl/gamepack-%s.json", gamePackID))
 	if not file then
-		error(string.format("Couldn't find GamePack for %s!", gamePackID))
+		error(string.format("Couldn't find GamePack for %s! This isn't your fault, blame the developer.", gamePackID))
 	end
 	data = json.decode(file)
 	self:load(nil, data)
