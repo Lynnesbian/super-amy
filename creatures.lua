@@ -37,7 +37,7 @@ function Amy:initialize(x, y)
 	self.powers = {}
 end
 function Amy:calculateState()
-	if not self.grounded then
+	if (not self.grounded) and self.yVelocity > 8 then
 		self.state = "falling"
 		self.stateCluster = nil
 		return
