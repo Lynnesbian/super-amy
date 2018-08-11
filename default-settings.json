@@ -1,0 +1,6 @@
+{
+	"graphics":{
+		"crt":[true, 1.025],
+		"aberration":[true, 3]
+	}
+}
