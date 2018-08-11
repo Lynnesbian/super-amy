@@ -3,6 +3,8 @@
 
 ![Super Amy's logo!](https://raw.githubusercontent.com/deleeciousCheeps/super-amy/master/res/img/logo.png "Super Amy's logo!")
 
+**[Available on itch.io!](https://deleeciouscheeps.itch.io/super-amy?password=super-amy)**
+
 Super Amy is a 2D platformer game written in LÖVE. You play as Amy on a quest to meet up with your girlfriend!
 
 ![A screenshot of the game](https://raw.githubusercontent.com/deleeciousCheeps/super-amy/master/res/img/screenshot.png "A screenshot of the game")
@@ -15,7 +17,9 @@ Install git, and use this command:
 `git clone --recursive -j4 https://github.com/deleeciousCheeps/super-amy`
 Don't forget the `--recursive`! Otherwise, the game will fail to run. This is because the game relies on [several libraries](#libraries-used) which are externally hosted as Git projects.
 ### Just running the game
-Click "Clone or download" at the top of the page, and then "Download ZIP". Extract the zip file, and run "love ." in the resulting directory. You'll need to have [LÖVE](https://love2d.org/) version 11.1 installed.
+The easiest way to get the game straight away is by [downloading it from itch.io](https://deleeciouscheeps.itch.io/super-amy?password=super-amy). However, the itch version is not always the latest available version.
+
+If you want to get Super Amy from GitHub instead (and ensure you have the latest available version), click "Clone or download" at the top of the page, and then "Download ZIP". Extract the zip file, and run "love ." in the resulting directory. You'll need to have [LÖVE](https://love2d.org/) version 11.1 installed.
 
 ## Necessary software
 To run this game, you'll need [LÖVE](https://love2d.org/) version 11.1. Versions below 11 won't work, and later versions might introduce breaking changes. 11.0 *should* be fine, but I haven't tested it.
