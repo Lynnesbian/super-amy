@@ -25,6 +25,6 @@ After installing LÖVE, there are two ways to run the game.
  - Open the directory in your terminal/command prompt and type `love .`
 
 ## Licence
-This project is licenced under the [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) licence. The text of this licence is available in the "COPYING" file in the root directory of this project.
+This project, including all music and graphics, but *not the included libraries*, is licenced under the [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) licence. The text of this licence is available in the "COPYING" file in the root directory of this project.
 
 ![CC BY 4.0](https://licensebuttons.net/l/by/4.0/88x31.png "CC BY 4.0")
