@@ -96,7 +96,7 @@ end
 
 function love.draw()
 	--draw level
-	camera:chase(amy, 4, 2, 3) --TODO: adapt this to the screen!
+	camera:chase(amy, 4, 2, 3) --TODO: adapt this to the size of the screen!
 	local map = currentLevel:getMap()
 	-- love.graphics.setBackgroundColor(currentLevel:getBackgroundColour())
 	-- love.graphics.draw(ss:drawArgs(0, 0))
