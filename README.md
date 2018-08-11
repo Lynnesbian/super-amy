@@ -3,7 +3,11 @@
 
 ![Super Amy's logo!](https://raw.githubusercontent.com/deleeciousCheeps/super-amy/master/res/img/logo.png "Super Amy's logo!")
 
-This game is **still in early alpha**, so don't expect much from it.
+Super Amy is a 2D platformer game written in LÖVE. You play as Amy on a quest to meet up with your girlfriend!
+
+![A screenshot of the game](https://raw.githubusercontent.com/deleeciousCheeps/super-amy/master/res/img/screenshot.png "A screenshot of the game")
+
+This game is **still in early alpha**, so don't expect much from it in the way of playability just yet.
 
 ## Cloning this repository
 Install git, and use this command:
