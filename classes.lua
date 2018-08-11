@@ -162,7 +162,7 @@ function Creature:checkCollision(level, hitboxes)
 		sy = self.y + hitbox.yOffset / 32
 		for row, rData in pairs(level:getMap()['fg']) do
 			for column, tile in pairs(rData) do
-				if tile ~= 0 and tile.solid then
+				if (tile ~= 0) and tile.solid then
 					tx = tile.x + tile.hitbox.xOffset / 32
 					ty = tile.y + tile.hitbox.yOffset / 32
 
