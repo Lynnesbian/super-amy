@@ -71,23 +71,23 @@ end
 
 function love.load()
 	love.window.setMode(1024, 768, {resizable = true})
-	shaders = moonshine(moonshine.effects.chromasep).chain(moonshine.effects.vignette).chain(moonshine.effects.crt)
-	shaders.parameters = {
-		chromasep = {
-			radius = 3
-		},
-		crt = {
-			distortionFactor = {1.025, 1.025}
-		},
-		vignette = {
-			radius = 0.9,
-			opacity = 0.25
-		}
-	}
 	if true or not love.filesystem.exists("settings.json") then --remove "true or" when releasing!
 		love.filesystem.write("settings.json", love.filesystem.read("default-settings.json"))
 	end
 	settings = json.decode(love.filesystem.read("settings.json"))
+	shaders = moonshine(moonshine.effects.chromasep).chain(moonshine.effects.vignette).chain(moonshine.effects.crt)
+	shaders.parameters = {
+		chromasep = {
+			radius = settings['graphics']['aberration'][2]
+		},
+		crt = {
+			distortionFactor = {settings['graphics']['crt'][2], settings['graphics']['crt'][2]}
+		},
+		vignette = {
+			radius = settings['graphics']['vignette'][2],
+			opacity = settings['graphics']['vignette'][3]
+		}
+	}
 end
 
 function love.draw()
