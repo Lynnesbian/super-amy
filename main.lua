@@ -56,6 +56,7 @@ local currentLevel = mainGP:getLevel(1, 1)
 currentLevel:prepare()
 amy = currentLevel:getAmy()
 --temp stuff
+camera = Camera:new()
 
 function love.update(dt)
 	for k,v in pairs(controls) do
@@ -73,6 +74,7 @@ end
 
 function love.load()
 	love.window.setMode(1024, 768, {resizable = true})
+	camera:setSize(1024, 768)
 	if true or not love.filesystem.exists("settings.json") then --remove "true or" when releasing!
 		love.filesystem.write("settings.json", love.filesystem.read("default-settings.json"))
 	end
@@ -94,6 +96,7 @@ end
 
 function love.draw()
 	--draw level
+	camera:chase(amy, 4, 2, 3) --TODO: adapt this to the screen!
 	local map = currentLevel:getMap()
 	-- love.graphics.setBackgroundColor(currentLevel:getBackgroundColour())
 	-- love.graphics.draw(ss:drawArgs(0, 0))
@@ -108,7 +111,7 @@ function love.draw()
 			for row, rData in pairs(map[catName]) do
 				for column, tile in pairs(rData) do
 					if tile ~= 0 then
-						love.graphics.draw(tile:drawArgs((settings['graphics']['scale'] * 32) * (tile:getPos()['x'] - 1), (settings['graphics']['scale'] * 32) * (tile:getPos()['y'] - 1), settings['graphics']['scale']))
+						love.graphics.draw(tile:drawArgs(camera, (settings['graphics']['scale'] * 32) * (tile:getPos()['x'] - 1), (settings['graphics']['scale'] * 32) * (tile:getPos()['y'] - 1), settings['graphics']['scale']))
 					end
 				end
 			end
@@ -116,13 +119,13 @@ function love.draw()
 
 		--objects
 		for key, obj in pairs(currentLevel:getObjects()) do
-			love.graphics.draw(obj:drawArgs((settings['graphics']['scale'] * 32) * (obj:getPos()['x'] - 1), (settings['graphics']['scale'] * 32) * (obj:getPos()['y'] - 1), settings['graphics']['scale']))
+			love.graphics.draw(obj:drawArgs(camera, (settings['graphics']['scale'] * 32) * (obj:getPos()['x'] - 1), (settings['graphics']['scale'] * 32) * (obj:getPos()['y'] - 1), settings['graphics']['scale']))
 		end
 
 	end)
 	love.graphics.setColor(1,0,0)
 	love.graphics.print("FPS: "..love.timer.getFPS(), 10, 20)
-	love.graphics.print(string.format("Amy: %s, %s, %s (%s)", amy.x, amy.y, amy.stateCluster, amy.state), 10, 30)
+	love.graphics.print(string.format("Amy: %s, %s, %s (%s). Camera: %s, %s", amy.x, amy.y, amy.stateCluster, amy.state, camera.x, camera.y), 10, 30)
 	-- love.graphics.print("x", (amy.x - 1) * 32 * settings['graphics']['scale'], (amy.y - 1) * 32 * settings['graphics']['scale'])
 	-- love.graphics.setColor(1, 0, 0, 0.5)
 	-- love.graphics.rectangle("fill", ((amy.x - 1) * 32 + amy.hitbox.xOffset) * settings['graphics']['scale'], ((amy.y - 1) * 32 + amy.hitbox.yOffset) * settings['graphics']['scale'], amy.hitbox.width * settings['graphics']['scale'], amy.hitbox.height * settings['graphics']['scale'])

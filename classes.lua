@@ -88,22 +88,35 @@ states = {
 				break
 			end
 		end
+	end,
+	drawArgs = function(self, cam, screenX, screenY, scaleX, scaleY)
+		if scaleX == nil then scaleX = 1 end
+		if scaleY == nil then scaleY = scaleX end
+		if cache['img'] == nil then error(":c") end
+		return cache['img'][self:getImgFile()], cache['sprites'][self:getImg()], screenX - (cam.x * 32 * settings['graphics']['scale']) + cam.width / 2, screenY - cam.y * 32 * settings['graphics']['scale'], 0, scaleX, scaleY
 	end
+
 }
-getPosFunction = {
+getPosFunctions = {
 	getPos = function(self)
 		pos = {
 			['x'] = self.x,
 			['y'] = self.y
 		}
 		return pos
+	end,
+	getCentre = function(self)
+		return {
+			x = self.x + self.width / 2,
+			y = self.y + self.height / 2
+		}
 	end
 }
 
 ----- CLASSES -----
 Creature = class("Creature")
 Creature:include(states)
-Creature:include(getPosFunction)
+Creature:include(getPosFunctions)
 function Creature:initialize(x, y, hitboxes)
 	self.name = "Unnamed Creature"
 	self.hp = 1
@@ -137,12 +150,6 @@ function Creature:initialize(x, y, hitboxes)
 	end
 end
 
-function Creature:drawArgs(screenX, screenY, scaleX, scaleY)
-	if scaleX == nil then scaleX = 1 end
-	if scaleY == nil then scaleY = scaleX end
-	if cache['img'] == nil then error(":c") end
-	return cache['img']["creatures.png"], cache['sprites'][self:getImg()], screenX, screenY, 0, scaleX, scaleY
-end
 function Creature:movingLeft()
 	return (self.xVelocity < 0)
 end
@@ -189,11 +196,15 @@ function Creature:processPhysics(dt, level)
 		if self.yVelocity > 0 then self.yVelocity = 0 end
 	end
 
-	if self.xVelocity > self.xvCap then
-		self.xVelocity = pullTowards(self.xVelocity, self.xvCap, 10 * dt)
+	if math.abs(self.xVelocity) > self.xvCap then
+		local dir = 1
+		if self.xVelocity < 0 then dir = -1 end
+		self.xVelocity = pullTowards(self.xVelocity, dir * self.xvCap, 10 * dt)
 	end
-	if self.yVelocity > self.yvCap then
-		self.yVelocity = pullTowards(self.yVelocity, self.yvCap, 10 * dt)
+	if math.abs(self.yVelocity) > self.yvCap then
+		local dir = 1
+		if self.yVelocity < 0 then dir = -1 end
+		self.yVelocity = pullTowards(self.yVelocity, dir * self.yvCap, 10 * dt)
 	end
 
 	self.xVelocity = pullTowards(self.xVelocity, 0, 4 * dt)
@@ -237,10 +248,13 @@ end
 function Creature:jump()
 	if self.grounded then self.yVelocity = -8 end
 end
+function Creature:getImgFile()
+	return "creatures.png"
+end
 
 Tile = class("Tile")
 Tile:include(states)
-Tile:include(getPosFunction)
+Tile:include(getPosFunctions)
 function Tile:initialize(name, bg, x, y, hitbox)
 	self.name, self.bg, self.x, self.y = name, bg, x, y
 	self.solid = true
@@ -266,12 +280,6 @@ function Tile:getImgFile()
 	else
 		return "tiles.png"
 	end
-end
-function Tile:drawArgs(screenX, screenY, scaleX, scaleY) --TODO: mixin?
-	if scaleX == nil then scaleX = 1 end
-	if scaleY == nil then scaleY = scaleX end
-	if cache['img'] == nil then error(":c") end
-	return cache['img'][self:getImgFile()], cache['sprites'][self.img], screenX, screenY, 0, scaleX, scaleY
 end
 
 Hitbox = class("Hitbox")
@@ -379,4 +387,30 @@ function GameLevel:getAmy()
 	for k, obj in pairs(self.objects) do
 		if obj:isInstanceOf(_G["Amy"]) then return obj end
 	end
+end
+
+Camera = class("Camera")
+Camera:include(getPosFunctions)
+function Camera:initialize()
+	self.x = 0
+	self.y = 0
+end
+function Camera:setSize(width, height)
+	self.width, self.height = width, height
+end
+function Camera:setPos(x, y)
+	self.x, self.y = x, y
+end
+function Camera:chase(target, xDistance, yDistance, yOffset)
+	local centre = target:getCentre()
+	centre['y'] = centre['y'] - yOffset * settings['graphics']['scale']
+	while not withinXOf(centre['x'], self.x, xDistance) do
+		self.x = pullTowards(self.x, centre['x'], 1/32)
+	end
+	while not withinXOf(centre['y'], self.y, yDistance) do
+		self.y = pullTowards(self.y, centre['y'], 1/32)
+	end
+end
+function Camera:moveTowards(x, y, speed)
+	error("Not implemented yet")
 end
