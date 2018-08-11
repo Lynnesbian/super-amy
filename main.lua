@@ -108,6 +108,12 @@ function love.draw()
 		love.graphics.setColor(1, 1, 1)
 
 		for key, catName in pairs({'bg', 'fg'}) do
+			if catName == "fg" then
+				--draw objects before fg but after bg
+				for key, obj in pairs(currentLevel:getObjects()) do
+			love.graphics.draw(obj:drawArgs(camera, (settings['graphics']['scale'] * 32) * (obj:getPos()['x'] - 1), (settings['graphics']['scale'] * 32) * (obj:getPos()['y'] - 1), settings['graphics']['scale']))
+				end
+			end
 			for row, rData in pairs(map[catName]) do
 				for column, tile in pairs(rData) do
 					if tile ~= 0 then
@@ -115,11 +121,6 @@ function love.draw()
 					end
 				end
 			end
-		end
-
-		--objects
-		for key, obj in pairs(currentLevel:getObjects()) do
-			love.graphics.draw(obj:drawArgs(camera, (settings['graphics']['scale'] * 32) * (obj:getPos()['x'] - 1), (settings['graphics']['scale'] * 32) * (obj:getPos()['y'] - 1), settings['graphics']['scale']))
 		end
 
 	end)

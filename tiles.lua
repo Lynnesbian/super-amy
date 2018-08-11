@@ -48,6 +48,21 @@ function tileGrass:initialize(x, y)
 end
 tileGrass()
 
+tileVictoryGateFG = class("tileVictoryGateFG", Tile)
+function tileVictoryGateFG:initialize(x, y)
+	Tile.initialize(self, "tileVictoryGateFG", false, x, y)
+	self.solid = false
+	self:setGraphics(4, 3, 1, 1)
+end
+tileVictoryGateFG()
+
+tileVictoryGateTopFG = class("tileVictoryGateTopFG", Tile)
+function tileVictoryGateTopFG:initialize(x, y)
+	Tile.initialize(self, "tileVictoryGateTopFG", false, x, y) --todo: add hitbox
+	self:setGraphics(4, 2, 1, 1)
+end
+tileVictoryGateTopFG()
+
 -- BACKGROUND --
 tileCloudA = class("tileCloudA", Tile)
 function tileCloudA:initialize(x, y)
@@ -62,3 +77,17 @@ function tileCloudB:initialize(x, y)
 	self:setGraphics(2, 0, 2, 1)
 end
 tileCloudB()
+
+tileVictoryGateBG = class("tileVictoryGateFG", Tile)
+function tileVictoryGateBG:initialize(x, y)
+	Tile.initialize(self, "tileVictoryGateBG", true, x, y)
+	self:setGraphics(1, 3, 1, 1)
+end
+tileVictoryGateBG()
+
+tileVictoryGateTopBG = class("tileVictoryGateTopBG", Tile)
+function tileVictoryGateTopBG:initialize(x, y)
+	Tile.initialize(self, "tileVictoryGateTopBG", true, x, y)
+	self:setGraphics(1, 1, 1, 1)
+end
+tileVictoryGateTopBG()
