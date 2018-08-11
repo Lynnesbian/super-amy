@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 output=`cloc . --csv --exclude-dir nozip,lib --include-lang Lua`
 filecount=`echo $output|awk {'print $1'}`
 sloc=`echo $output|grep -oP "\\d* *\$"`
