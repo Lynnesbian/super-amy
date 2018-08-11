@@ -329,11 +329,11 @@ function GamePack:load(path, data)
 	end
 end
 function GamePack:loadMainPack(gamePackID)
-	file = io.open(string.format("lvl/gamepack-%s.json", gamePackID))
+	file, size = love.filesystem.read("string", string.format("lvl/gamepack-%s.json", gamePackID))
 	if not file then
 		error(string.format("Couldn't find GamePack for %s!", gamePackID))
 	end
-	data = json.decode(file:read("*a"))
+	data = json.decode(file)
 	self:load(nil, data)
 end
 function GamePack:getLevel(act, level)
