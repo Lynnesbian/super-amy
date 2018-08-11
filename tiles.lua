@@ -81,7 +81,7 @@ tileCloudB()
 tileVictoryGateBG = class("tileVictoryGateFG", Tile)
 function tileVictoryGateBG:initialize(x, y)
 	Tile.initialize(self, "tileVictoryGateBG", true, x, y)
-	self:setGraphics(1, 3, 1, 1)
+	self:setGraphics(1, 2, 1, 1)
 end
 tileVictoryGateBG()
 
