@@ -3,8 +3,6 @@ function love.conf(t)
   t.author = "Lynne"
   t.version = "11.1"
   t.identity = "super-amy"
-  t.release = false
-  t.console = false
   t.modules.joystick = false
   t.modules.audio = true
   t.modules.keyboard = true
