@@ -1,5 +1,5 @@
 #!/bin/sh
 rm -f super-amy.love
 git gc -q
-zip -x nozip/\* -r super-amy.love . 1> /dev/null
+zip -x nozip/\* .git/\* -r super-amy.love . 1> /dev/null
 love super-amy.love
