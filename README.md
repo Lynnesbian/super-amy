@@ -19,14 +19,14 @@ Don't forget the `--recursive`! Otherwise, the game will fail to run. This is be
 ### Just running the game
 The easiest way to get the game straight away is by [downloading it from itch.io](https://deleeciouscheeps.itch.io/super-amy?password=super-amy). However, the itch version is not always the latest available version.
 
-If you want to get Super Amy from GitHub instead (and ensure you have the latest available version), click "Clone or download" at the top of the page, and then "Download ZIP". Extract the zip file, and run "love ." in the resulting directory. You'll need to have [LÖVE](https://love2d.org/) version 11.1 installed.
+If you want to get Super Amy from GitHub instead (and ensure you have the latest available version), click "Clone or download" at the top of the page, and then "Download ZIP". Extract the zip file, and run `love .` in the resulting directory. You'll need to have [LÖVE](https://love2d.org/) version 11.1 installed.
 
 ## Necessary software
 To run this game, you'll need [LÖVE](https://love2d.org/) version 11.1. Versions below 11 won't work, and later versions might introduce breaking changes. 11.0 *should* be fine, but I haven't tested it.
 
 To edit the provided files, you'll need the following:
 - [GIMP](https://www.gimp.org/) v2.10 or later for the .xcf files in `res/img`
-- [DefleMask](http://www.deflemask.com/) for the .dmf files in `res/mus/deflemask`
+- [DefleMask](http://www.deflemask.com/) for the .dmf files in `res/mus/dmf` and `res/sfx/dmf`
 
 All of this software is available for Windows, Mac, and Linux, free of charge.
 
@@ -39,9 +39,9 @@ After installing LÖVE, there are two ways to run the game.
 If you're just planning on playing the game, you don't need to worry about this section. If you're planning on using some of Super Amy's assets or code for your own project, make sure you're familiar with the terms of the licence.
 
 ### Super Amy
-The source code of this project, **not** including all music and graphics, and also **not** including the supplied libraries, is licenced under the [MPL 2.0](https://www.mozilla.org/media/MPL/2.0/index.txt) licence. The text of this licence is available in the "COPYING" file in the root directory of this project.
+The source code of this project, **not** including all music, sound effects, and graphics, and also **not** including the supplied libraries, is licenced under the [MPL 2.0](https://www.mozilla.org/media/MPL/2.0/index.txt) licence. The text of this licence is available in the "COPYING" file in the root directory of this project.
 
-The assets used in this project -- that is, the music and graphics, but **not** the supplied libraries, and **not** the source code -- are available under the [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) licence. The text of this licence is available in the "asset-licence.txt" file in the "res" directory of this project.
+The assets used in this project -- that is, the music, sound effects, and graphics, but **not** the supplied libraries, and **not** the source code -- are available under the [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) licence. The text of this licence is available in the "asset-licence.txt" file in the "res" directory of this project.
 
 ![CC BY 4.0](https://licensebuttons.net/l/by/4.0/88x31.png "CC BY 4.0")
 
