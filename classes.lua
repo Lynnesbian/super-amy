@@ -89,11 +89,16 @@ states = {
 			end
 		end
 	end,
-	drawArgs = function(self, cam, screenX, screenY, scaleX, scaleY)
+	drawArgs = function(self, cam, screenX, screenY, scaleX, scaleY, noFlip)
 		if scaleX == nil then scaleX = 1 end
 		if scaleY == nil then scaleY = scaleX end
+		drawX = screenX - (cam.x * 32 * settings['graphics']['scale']) + cam.width / 2
 		if cache['img'] == nil then error(":c") end
-		return cache['img'][self:getImgFile()], cache['sprites'][self:getImg()], screenX - (cam.x * 32 * settings['graphics']['scale']) + cam.width / 2, screenY - cam.y * 32 * settings['graphics']['scale'], 0, scaleX, scaleY
+		if not noFlip and self:isInstanceOf(Creature) and self:movingLeft() then
+			scaleX = scaleX * -1
+			drawX = drawX + (self.width * settings['graphics']['scale'] * 32)
+		end
+		return cache['img'][self:getImgFile()], cache['sprites'][self:getImg()], drawX, screenY - cam.y * 32 * settings['graphics']['scale'], 0, scaleX, scaleY
 	end
 
 }
@@ -118,7 +123,7 @@ Creature = class("Creature")
 Creature:include(states)
 Creature:include(getPosFunctions)
 function Creature:initialize(name, x, y, hitboxes)
-	self.name, self.x, self.y = name, x, y
+	self.name, self.x, self.y, self.hitboxes = name, x, y, hitboxes
 	self.grounded = true
 	self.usesStates = false
 	self.states = {default={0}}
@@ -134,7 +139,6 @@ function Creature:initialize(name, x, y, hitboxes)
 	self.yvCap = 15
 	self.speed = 0.2
 	-- self.defaultHitboxes = hitboxes
-	self.hitboxes = hitboxes
 	self.collidingWith = {}
 	-- self.lowestHitbox = hitboxes[1]
 	local lowest = 0
@@ -421,3 +425,4 @@ end
 function Camera:moveTowards(x, y, speed)
 	error("Not implemented yet")
 end
+
