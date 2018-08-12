@@ -13,18 +13,18 @@ for k,cat in pairs({"tileNames"}) do
 	metadata[cat] = {}
 end
 cache = {}
-for k,cat in pairs({"img", "sprites", "hitboxes"}) do
+for k,cat in pairs({"img", "sprites", "hitboxes", "sfx"}) do
 	cache[cat] = {}
 end
 metatables = {}
 
 metatables["img"] = {}
-metatables['img'].__index = function(table, key)
+metatables['img'].__index = function(tbl, key)
 	if key == nil then
 		error("Tried to access cache['img'] using a nil key!")
 	end
-	table[key] = love.graphics.newImage("res/img/" .. key)
-	return table[key]
+	tbl[key] = love.graphics.newImage("res/img/" .. key)
+	return tbl[key]
 end
 setmetatable(cache["img"], metatables['img'])
 
@@ -41,6 +41,16 @@ metatables['hitboxes'].__index = function(tbl, key)
 	return tbl[key]
 end
 setmetatable(cache["hitboxes"], metatables['hitboxes'])
+
+metatables["sfx"] = {}
+metatables['sfx'].__index = function(tbl, key)
+	if key == nil then
+		error("Tried to access cache['sfx'] using a nil key!")
+	end
+	tbl[key] = love.audio.newSource(string.format("res/sfx/ogg/%s.ogg", key), "static")
+	return tbl[key]
+end
+setmetatable(cache["sfx"], metatables['sfx'])
 
 --REQUIRES
 require("functions")

@@ -253,7 +253,10 @@ function Creature:moveInDirection(direction)
 	end
 end
 function Creature:jump()
-	if self.grounded then self.yVelocity = -8 end
+	if self.grounded then
+		self.yVelocity = -8
+		playSound("jump")
+	end
 end
 function Creature:getImgFile()
 	return "creatures.png"
