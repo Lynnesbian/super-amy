@@ -94,7 +94,7 @@ states = {
 		if scaleY == nil then scaleY = scaleX end
 		drawX = screenX - (cam.x * 32 * settings['graphics']['scale']) + cam.width / 2
 		if cache['img'] == nil then error(":c") end
-		if not noFlip and self:isInstanceOf(Entity) and self:movingLeft() then
+		if not noFlip and self:isInstanceOf(Entity) and self:isMovingLeft() then
 			scaleX = scaleX * -1
 			drawX = drawX + (self.width * settings['graphics']['scale'] * 32)
 		end
@@ -141,6 +141,7 @@ function Entity:initialize(name, x, y, hitboxes)
 	self.xvCap = 5
 	self.yvCap = 15
 	self.speed = 15
+	self.movingLeft = false
 	-- self.defaultHitboxes = hitboxes
 	self.collidingWith = {}
 	-- self.lowestHitbox = hitboxes[1]
@@ -155,8 +156,11 @@ function Entity:initialize(name, x, y, hitboxes)
 	metadata['entities'][self.class.name] = self.class
 end
 
-function Entity:movingLeft()
-	return (self.xVelocity < 0)
+function Entity:isMovingLeft()
+	if self.xVelocity ~= 0 then
+		self.movingLeft = self.xVelocity < 0
+	end
+	return self.movingLeft
 end
 
 function Entity:checkCollision(level, hitboxes)
@@ -237,13 +241,13 @@ function Entity:processPhysics(dt, level)
 end
 function Entity:moveInDirection(direction, dt)
 	if direction == "left" then
-		if self:movingLeft() then
+		if self:isMovingLeft() then
 			self.xVelocity = self.xVelocity - self.speed * dt
 		else
 			self.xVelocity = self.xVelocity - self.speed * 2 * dt
 		end
 	elseif direction == "right" then
-		if self:movingLeft() then
+		if self:isMovingLeft() then
 			self.xVelocity = self.xVelocity + self.speed * 2 * dt
 		else
 			self.xVelocity = self.xVelocity + self.speed * dt
