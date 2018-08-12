@@ -117,11 +117,8 @@ getPosFunctions = {
 Creature = class("Creature")
 Creature:include(states)
 Creature:include(getPosFunctions)
-function Creature:initialize(x, y, hitboxes)
-	self.name = "Unnamed Creature"
-	self.hp = 1
-	self.x = x
-	self.y = y
+function Creature:initialize(name, x, y, hitboxes)
+	self.name, self.x, self.y = name, x, y
 	self.grounded = true
 	self.usesStates = false
 	self.states = {default={0}}

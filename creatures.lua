@@ -7,7 +7,7 @@ require("classes")
 Amy = class("Amy", Creature)
 function Amy:initialize(x, y)
 	local hb = getHitbox(12, 9, 15, 55)
-	Creature.initialize(self, x, y, {hb})
+	Creature.initialize(self, "Amy", x, y, {hb})
 	self.name = "Amy"
 	stateSet = {
 		default = {0},
@@ -59,7 +59,7 @@ end
 Slime = class("Slime", Creature)
 function Slime:initialize(x, y)
 	local hbs = {getHitbox(2, 19, 28, 13), getHitbox(6, 15, 20, 4)}
-	Creature.initialize(self, x, y, hbs)
+	Creature.initialize(self, "Slime", x, y, hbs)
 	stateSet = {
 		default = {0},
 		bob = {1},
