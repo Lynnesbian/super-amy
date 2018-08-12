@@ -7,5 +7,7 @@ controls = {
 	left = "left",
 	right = "right",
 	z = "jump",
-	space = "jump"
+	space = "jump",
+	interact = "e",
+	restart = "r"
 }
