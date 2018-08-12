@@ -33,7 +33,7 @@ states = {
 
 	setGraphics = function(self, imgX, imgY, width, height)
 		--/!\ ⚠️ /!\ ACHTUNG /!\ ⚠️ /!\
-		--call initialiseStates BEFORE calling this function! or else you will DIE
+		--if you want to use states, call initialiseStates BEFORE calling this function! or else you will DIE
 		if width == nil then width = 1 end
 		if height == nil then height = width end
 		self.width = width
@@ -41,7 +41,7 @@ states = {
 
 		for state, offset in pairs(self.states) do
 			if #offset == 1 then table.insert(offset, 0) end
-			img = string.format("%s|%s|%s",self.imgFile, self.class, state)
+			img = string.format("%s|%s|%s",self.imgFile, self.class.name, state)
 			if state == "default" then self.baseImg = img end
 			if cache['sprites'][img] == nil then
 				cache['sprites'][img] = love.graphics.newQuad((imgX+offset[1])*32, (imgY+offset[2])*32, width*32, height*32, cache['img'][self.imgFile]:getDimensions())
@@ -51,7 +51,7 @@ states = {
 	end,
 
 	getImg = function(self)
-		return string.format("%s|%s|%s",self.imgFile, self.class, self.state)
+		return string.format("%s|%s|%s",self.imgFile, self.class.name, self.state)
 	end,
 
 	animate = function(self, dt)
@@ -149,6 +149,7 @@ function Entity:initialize(name, x, y, hitboxes)
 			self.lowestHitbox = hitbox
 		end
 	end
+	metadata['entities'][self.class.name] = self.class
 end
 
 function Entity:movingLeft()
@@ -190,7 +191,6 @@ function Entity:groundingCheck(level)
 	self.grounded = #feetCollision > 0
 end
 function Entity:processPhysics(dt, level)
-	--TODO: incorporate dt somehow ;)
 	--TODO: clean this up, it's really messy
 	self:groundingCheck(level)
 	if not self.grounded then
@@ -279,7 +279,7 @@ function Tile:initialize(name, bg, x, y, hitbox)
 	self.baseImg = nil
 	self.defaultHitbox = hitbox or getHitbox(0, 0, 32, 32)
 	self.hitbox = self.defaultHitbox
-	table.insert(metadata['tileNames'], self.name)
+	metadata['tiles'][self.class.name] = self.class
 	self.imgFile = iif(bg, "backgrounds.png", "tiles.png")
 end
 function Tile:getQuad()
@@ -446,6 +446,7 @@ function Object:initialize(name, x, y, hitboxes, listeners)
 	self.imgFile = "objects.png"
 	self.states = {default={0}}
 	self.state = "default"
+	metadata['objects'][self.class.name] = self.class
 end
 function Object:getImgFile()
 	return "objects.png"

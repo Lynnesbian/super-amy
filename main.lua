@@ -9,7 +9,7 @@ local json = require("lib.json.json")
 love.graphics.setDefaultFilter("nearest", "nearest", 1)
 settings = {}
 metadata = {}
-for k,cat in pairs({"tileNames"}) do
+for k,cat in pairs({"tiles", "objects", "entities"}) do
 	metadata[cat] = {}
 end
 cache = {}
