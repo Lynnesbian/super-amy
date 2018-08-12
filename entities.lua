@@ -1,13 +1,13 @@
---CREATURES.LUA
---the creatures (amy, enemies, etc)
+--ENTITIES.LUA
+--the various living things (amy, enemies, etc)
 local class = require("lib.middleclass.middleclass")
 require("functions")
 require("classes")
 
-Amy = class("Amy", Creature)
-function Amy:initialize(x, y)
+nttAmy = class("nttAmy", Entity)
+function nttAmy:initialize(x, y)
 	local hb = getHitbox(12, 9, 15, 55)
-	Creature.initialize(self, "Amy", x, y, {hb})
+	Entity.initialize(self, "Amy", x, y, {hb})
 	self.name = "Amy"
 	stateSet = {
 		default = {0},
@@ -43,7 +43,7 @@ function Amy:initialize(x, y)
 	self.hp = 10
 	self.powers = {}
 end
-function Amy:calculateState()
+function nttAmy:calculateState()
 	if (not self.grounded) and self.yVelocity > 9 then
 		self.stateCluster = "fall"
 		return
@@ -55,12 +55,12 @@ function Amy:calculateState()
 		self.stateCluster = nil
 	end
 end
-Amy()
+nttAmy()
 
-Slime = class("Slime", Creature)
-function Slime:initialize(x, y)
+nttSlime = class("nttSlime", Entity)
+function nttSlime:initialize(x, y)
 	local hbs = {getHitbox(2, 19, 28, 13), getHitbox(6, 15, 20, 4)}
-	Creature.initialize(self, "Slime", x, y, hbs)
+	Entity.initialize(self, "Slime", x, y, hbs)
 	stateSet = {
 		default = {0},
 		bob = {1},
@@ -77,11 +77,11 @@ function Slime:initialize(x, y)
 	self.hp = 2
 	self.powers = {}
 end
-function Slime:calculateState()
+function nttSlime:calculateState()
 	if self.xVelocity == 0 then
 		self.stateCluster = "idle"
 	else
 		self.stateCluster = nil
 	end
 end
-Slime()
+nttSlime()

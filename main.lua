@@ -56,7 +56,8 @@ setmetatable(cache["sfx"], metatables['sfx'])
 require("functions")
 require("classes")
 require("tiles")
-require("creatures")
+require("entities")
+require("objects")
 require("controls")
 
 --temp stuff
@@ -75,11 +76,11 @@ function love.update(dt)
 			handleCommand(v)
 		end
 	end
-	for key, creature in pairs(getAllInstancesOf(Creature, currentLevel:getObjects())) do
-		creature:processPhysics(dt, currentLevel)
-		-- creature:updateCollision(currentLevel)
-		creature:calculateState()
-		creature:animate(dt)
+	for key, entity in pairs(getAllInstancesOf(Entity, currentLevel:getEntities())) do
+		entity:processPhysics(dt, currentLevel)
+		-- entity:updateCollision(currentLevel)
+		entity:calculateState()
+		entity:animate(dt)
 	end
 end
 
@@ -120,9 +121,15 @@ function love.draw()
 
 		for key, catName in pairs({'bg', 'fg'}) do
 			if catName == "fg" then
-				--draw objects before fg but after bg
+				--draw objects and entities before fg but after bg
 				for key, obj in pairs(currentLevel:getObjects()) do
-			love.graphics.draw(obj:drawArgs(camera, (settings['graphics']['scale'] * 32) * (obj:getPos()['x'] - 1), (settings['graphics']['scale'] * 32) * (obj:getPos()['y'] - 1), settings['graphics']['scale']))
+					love.graphics.draw(obj:drawArgs(camera, (settings['graphics']['scale'] * 32) * (obj:getPos()['x'] - 1),
+						(settings['graphics']['scale'] * 32) * (obj:getPos()['y'] - 1), settings['graphics']['scale']))
+				end
+
+				for key, ntt in pairs(currentLevel:getEntities()) do
+					love.graphics.draw(ntt:drawArgs(camera, (settings['graphics']['scale'] * 32) * (ntt:getPos()['x'] - 1),
+						(settings['graphics']['scale'] * 32) * (ntt:getPos()['y'] - 1), settings['graphics']['scale']))
 				end
 			end
 			for row, rData in pairs(map[catName]) do

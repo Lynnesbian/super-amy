@@ -41,7 +41,7 @@ states = {
 
 		for state, offset in pairs(self.states) do
 			if #offset == 1 then table.insert(offset, 0) end
-			img = string.format("%s|%s|%s",self.imgFile, self.name, state)
+			img = string.format("%s|%s|%s",self.imgFile, self.class, state)
 			if state == "default" then self.baseImg = img end
 			if cache['sprites'][img] == nil then
 				cache['sprites'][img] = love.graphics.newQuad((imgX+offset[1])*32, (imgY+offset[2])*32, width*32, height*32, cache['img'][self.imgFile]:getDimensions())
@@ -51,7 +51,7 @@ states = {
 	end,
 
 	getImg = function(self)
-		return string.format("%s|%s|%s",self.imgFile, self.name, self.state)
+		return string.format("%s|%s|%s",self.imgFile, self.class, self.state)
 	end,
 
 	animate = function(self, dt)
@@ -94,7 +94,7 @@ states = {
 		if scaleY == nil then scaleY = scaleX end
 		drawX = screenX - (cam.x * 32 * settings['graphics']['scale']) + cam.width / 2
 		if cache['img'] == nil then error(":c") end
-		if not noFlip and self:isInstanceOf(Creature) and self:movingLeft() then
+		if not noFlip and self:isInstanceOf(Entity) and self:movingLeft() then
 			scaleX = scaleX * -1
 			drawX = drawX + (self.width * settings['graphics']['scale'] * 32)
 		end
@@ -119,10 +119,10 @@ getPosFunctions = {
 }
 
 ----- CLASSES -----
-Creature = class("Creature")
-Creature:include(states)
-Creature:include(getPosFunctions)
-function Creature:initialize(name, x, y, hitboxes)
+Entity = class("Entity")
+Entity:include(states)
+Entity:include(getPosFunctions)
+function Entity:initialize(name, x, y, hitboxes)
 	self.name, self.x, self.y, self.hitboxes = name, x, y, hitboxes
 	self.grounded = true
 	self.usesStates = false
@@ -132,7 +132,7 @@ function Creature:initialize(name, x, y, hitboxes)
 	self.stateCluster = nil
 	self.animationTimer = 0
 	self.baseImg = nil
-	self.imgFile = "creatures.png"
+	self.imgFile = "entities.png"
 	self.xVelocity = 0
 	self.yVelocity = 0
 	self.xvCap = 5
@@ -151,11 +151,11 @@ function Creature:initialize(name, x, y, hitboxes)
 	end
 end
 
-function Creature:movingLeft()
+function Entity:movingLeft()
 	return (self.xVelocity < 0)
 end
 
-function Creature:checkCollision(level, hitboxes)
+function Entity:checkCollision(level, hitboxes)
 	if hitboxes == nil then hitboxes = self.hitboxes end
 	local collidingWith = {}
 	for key, hitbox in pairs(hitboxes) do
@@ -181,15 +181,15 @@ function Creature:checkCollision(level, hitboxes)
 	end
 	return collidingWith
 end
--- function Creature:updateCollision(level)
+-- function Entity:updateCollision(level)
 -- 	self.collidingWith = self:checkCollision(level)
 -- end
-function Creature:groundingCheck(level)
+function Entity:groundingCheck(level)
 	local feet = getHitbox(self.lowestHitbox.xOffset + 1, self.lowestHitbox.yOffset + self.lowestHitbox.height, self.lowestHitbox.width - 2, 1)
 	local feetCollision = self:checkCollision(level, {feet})
 	self.grounded = #feetCollision > 0
 end
-function Creature:processPhysics(dt, level)
+function Entity:processPhysics(dt, level)
 	--TODO: incorporate dt somehow ;)
 	--TODO: clean this up, it's really messy
 	self:groundingCheck(level)
@@ -232,7 +232,7 @@ function Creature:processPhysics(dt, level)
 	end
 
 end
-function Creature:moveInDirection(direction)
+function Entity:moveInDirection(direction)
 	if direction == "left" then
 		if self:movingLeft() then
 			self.xVelocity = self.xVelocity - self.speed
@@ -253,14 +253,14 @@ function Creature:moveInDirection(direction)
 		error("Unknown direction: ", direction)
 	end
 end
-function Creature:jump()
+function Entity:jump()
 	if self.grounded then
 		self.yVelocity = -8
 		playSound("jump")
 	end
 end
-function Creature:getImgFile()
-	return "creatures.png"
+function Entity:getImgFile()
+	return "entities.png"
 end
 
 Tile = class("Tile")
@@ -364,6 +364,8 @@ function GameLevel:initialize(level, compressionTable)
 	self.map['bg'] = {}
 	self.objectsPlan = level['obj']
 	self.objects = {}
+	self.entitiesPlan = level['entities']
+	self.entities = {}
 	self.bgColour = level['bgColour'] or {0, 0, 0}
 end
 function GameLevel:prepare()
@@ -382,7 +384,11 @@ function GameLevel:prepare()
 	end
 
 	for key, obj in pairs(self.objectsPlan) do
-		table.insert(self.objects, _G[obj[1]]:new(obj[2], obj[3]))
+		table.insert(self.objects, _G["obj"..obj[1]]:new(obj[2], obj[3]))
+	end
+
+	for key, entity in pairs(self.entitiesPlan) do
+		table.insert(self.entities, _G["ntt"..entity[1]]:new(entity[2], entity[3]))
 	end
 end
 function GameLevel:getMap()
@@ -391,12 +397,15 @@ end
 function GameLevel:getObjects()
 	return self.objects
 end
+function GameLevel:getEntities()
+	return self.entities
+end
 function GameLevel:getBackgroundColour()
 	return self.bgColour
 end
 function GameLevel:getAmy()
-	for k, obj in pairs(self.objects) do
-		if obj:isInstanceOf(_G["Amy"]) then return obj end
+	for k, ntt in pairs(self.entities) do
+		if ntt:isInstanceOf(_G["nttAmy"]) then return ntt end
 	end
 end
 
@@ -426,3 +435,15 @@ function Camera:moveTowards(x, y, speed)
 	error("Not implemented yet")
 end
 
+Object = class("Object")
+Object:include(getPosFunctions)
+Object:include(states)
+function Object:initialize(name, x, y, hitboxes)
+	self.name, self.x, self.y, self.hitboxes = name, x, y, hitboxes
+	self.imgFile = "objects.png"
+	self.states = {default={0}}
+	self.state = "default"
+end
+function Object:getImgFile()
+	return "objects.png"
+end

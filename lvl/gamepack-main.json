@@ -3,7 +3,7 @@
 	"description":"The main story for Super Amy!",
 	"author":"Lynnear Software",
 	"compressionTable": [
-		"nil", "Brick", "Grass", "DirtSurface", "DirtBlock", "CloudB", "CloudA", "VictoryGateFG", "VictoryGateBG", "VictoryGateTopFG", "VictoryGateTopBG", "VictoryBlock"
+		"nil", "Brick", "Grass", "DirtSurface", "DirtBlock", "CloudB", "CloudA", "VictoryGateFG", "VictoryGateBG", "VictoryGateTopFG", "VictoryGateTopBG"
 	],
 	"acts": [
 		{
@@ -51,8 +51,11 @@
 						]
 					},
 					"obj": [
-							["Amy", 2.5, 10], ["Slime", 6, 11]
-						]
+						["VictoryBlock", 24, 9], ["VictoryBlock", 24, 10], ["VictoryBlock", 24, 11]
+					],
+					"entities": [
+						["Amy", 2.5, 10], ["Slime", 6, 11]
+					]
 				}
 			]
 		}
