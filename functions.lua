@@ -86,17 +86,17 @@ end
 
 --GAME-SPECIFIC STUFF
 
-function handleCommand(cmd)
+function handleCommand(cmd, dt)
   -- print(key)
   if gameState['mode'] == "ingame" then
     if contains({"up", "down", "left", "right"}, cmd) then
-      amy:moveInDirection(cmd)
+      amy:moveInDirection(cmd, dt)
     elseif cmd == "jump" then
       amy:jump()
     end
   elseif gameState['mode'] == 'editor' then
     if contains({"up", "down", "left", "right"}, cmd) then
-      camera:moveInDirection(cmd)
+      camera:moveInDirection(cmd, dt)
     end
   end
 end

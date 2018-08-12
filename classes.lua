@@ -117,7 +117,7 @@ getPosFunctions = {
 		}
 	end,
 	isOnScreen = function(self, cam)
-		
+		return true
 	end
 }
 
@@ -140,7 +140,7 @@ function Entity:initialize(name, x, y, hitboxes)
 	self.yVelocity = 0
 	self.xvCap = 5
 	self.yvCap = 15
-	self.speed = 0.25
+	self.speed = 15
 	-- self.defaultHitboxes = hitboxes
 	self.collidingWith = {}
 	-- self.lowestHitbox = hitboxes[1]
@@ -235,18 +235,18 @@ function Entity:processPhysics(dt, level)
 	end
 
 end
-function Entity:moveInDirection(direction)
+function Entity:moveInDirection(direction, dt)
 	if direction == "left" then
 		if self:movingLeft() then
-			self.xVelocity = self.xVelocity - self.speed
+			self.xVelocity = self.xVelocity - self.speed * dt
 		else
-			self.xVelocity = self.xVelocity - self.speed * 2
+			self.xVelocity = self.xVelocity - self.speed * 2 * dt
 		end
 	elseif direction == "right" then
 		if self:movingLeft() then
-			self.xVelocity = self.xVelocity + self.speed * 2
+			self.xVelocity = self.xVelocity + self.speed * 2 * dt
 		else
-			self.xVelocity = self.xVelocity + self.speed
+			self.xVelocity = self.xVelocity + self.speed * dt
 		end
 	elseif direction == "up" then
 		self.y = self.y - 0.1 --this is debugging stuff
@@ -437,7 +437,7 @@ end
 function Camera:moveTowards(x, y, speed)
 	error("Not implemented yet")
 end
-function Camera:moveInDirection(dir)
+function Camera:moveInDirection(dir, dt)
 	if dir == "up" then
 		self.y = self.y - 0.1
 	elseif dir == "down" then

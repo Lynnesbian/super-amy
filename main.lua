@@ -69,7 +69,7 @@ camera.x, camera.y = 5, -5
 function love.update(dt)
 	for k,v in pairs(controls) do
 		if love.keyboard.isDown(k) then
-			handleCommand(v)
+			handleCommand(v, dt)
 		end
 	end
 	for key, entity in pairs(getAllInstancesOf(Entity, currentLevel:getEntities())) do
