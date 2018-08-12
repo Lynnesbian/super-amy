@@ -137,7 +137,7 @@ function Entity:initialize(name, x, y, hitboxes)
 	self.yVelocity = 0
 	self.xvCap = 5
 	self.yvCap = 15
-	self.speed = 0.2
+	self.speed = 0.25
 	-- self.defaultHitboxes = hitboxes
 	self.collidingWith = {}
 	-- self.lowestHitbox = hitboxes[1]
@@ -210,7 +210,7 @@ function Entity:processPhysics(dt, level)
 		self.yVelocity = pullTowards(self.yVelocity, dir * self.yvCap, 10 * dt)
 	end
 
-	if self.grounded then self.xVelocity = pullTowards(self.xVelocity, 0, 4 * dt) end
+	self.xVelocity = pullTowards(self.xVelocity, 0, 4 * dt)
 
 	local oldcol = #self:checkCollision(level)
 	local oldX = self.x
@@ -438,8 +438,11 @@ end
 Object = class("Object")
 Object:include(getPosFunctions)
 Object:include(states)
-function Object:initialize(name, x, y, hitboxes)
-	self.name, self.x, self.y, self.hitboxes = name, x, y, hitboxes
+function Object:initialize(name, x, y, hitboxes, listeners)
+	self.name, self.x, self.y, self.hitboxes, self.listeners = name, x, y, hitboxes, listeners
+	--LISTENERS:
+	--collide - when object is collided with (an entity overlaps with the space it occupies)
+	--interact - when the player presses the interact key while overlapping the entity
 	self.imgFile = "objects.png"
 	self.states = {default={0}}
 	self.state = "default"

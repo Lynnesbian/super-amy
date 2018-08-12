@@ -20,9 +20,6 @@ metatables = {}
 
 metatables["img"] = {}
 metatables['img'].__index = function(tbl, key)
-	if key == nil then
-		error("Tried to access cache['img'] using a nil key!")
-	end
 	tbl[key] = love.graphics.newImage("res/img/" .. key)
 	return tbl[key]
 end
@@ -30,9 +27,6 @@ setmetatable(cache["img"], metatables['img'])
 
 metatables["hitboxes"] = {}
 metatables['hitboxes'].__index = function(tbl, key)
-	if key == nil then
-		error("Tried to access cache['hitboxes'] using a nil key!")
-	end
 	args = {}
 	for d in string.gmatch(key, "%d+") do
 		table.insert(args, d)
@@ -44,9 +38,6 @@ setmetatable(cache["hitboxes"], metatables['hitboxes'])
 
 metatables["sfx"] = {}
 metatables['sfx'].__index = function(tbl, key)
-	if key == nil then
-		error("Tried to access cache['sfx'] using a nil key!")
-	end
 	tbl[key] = love.audio.newSource(string.format("res/sfx/ogg/%s.ogg", key), "static")
 	return tbl[key]
 end

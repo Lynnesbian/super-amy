@@ -117,7 +117,7 @@ function drawLevel(currentLevel)
     for key, catName in pairs({'bg', 'fg'}) do
       if catName == "fg" then
         --draw objects and entities before fg but after bg
-        for key, obj in pairs(currentLevel:getObjects()) do
+        for key, obj in pairs(currentLevel:getObjects()) do --todo: these two blocks are almost identical, merge them into one
           love.graphics.draw(obj:drawArgs(camera, (settings['graphics']['scale'] * 32) * (obj:getPos()['x'] - 1),
             (settings['graphics']['scale'] * 32) * (obj:getPos()['y'] - 1), settings['graphics']['scale']))
         end
