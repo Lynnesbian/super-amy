@@ -55,6 +55,7 @@ function Amy:calculateState()
 		self.stateCluster = nil
 	end
 end
+Amy()
 
 Slime = class("Slime", Creature)
 function Slime:initialize(x, y)
@@ -83,3 +84,4 @@ function Slime:calculateState()
 		self.stateCluster = nil
 	end
 end
+Slime()
