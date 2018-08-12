@@ -8,6 +8,6 @@ controls = {
 	right = "right",
 	z = "jump",
 	space = "jump",
-	interact = "e",
-	restart = "r"
+	e = "interact",
+	r = "restart"
 }

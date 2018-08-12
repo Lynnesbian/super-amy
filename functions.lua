@@ -87,6 +87,9 @@ end
 --GAME-SPECIFIC STUFF
 
 function handleCommand(cmd, dt)
+  if cmd == "restart" then
+    love.event.quit("restart")
+  end
   -- print(key)
   if gameState['mode'] == "ingame" then
     if contains({"up", "down", "left", "right"}, cmd) then
