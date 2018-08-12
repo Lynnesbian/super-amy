@@ -217,7 +217,8 @@ function Creature:processPhysics(dt, level)
 	local dir = 1
 	if oldX < self.x then dir = -1 end
 	while #self:checkCollision(level) ~= oldcol do
-		self.x = self.x + (1/32) * dir
+		self.xVelocity = 0
+		self.x = round(self.x + (1/32) * dir, 1/32)
 	end
 
 	local oldY = self.y
@@ -225,7 +226,8 @@ function Creature:processPhysics(dt, level)
 	dir = 1
 	if oldY < self.y then dir = -1 end
 	while #self:checkCollision(level) ~= oldcol do
-		self.y = self.y + (1/32) * dir
+		self.yVelocity = 0
+		self.y = round(self.y + (1/32) * dir, 1/32)
 	end
 
 end
