@@ -88,10 +88,16 @@ end
 
 function handleCommand(cmd)
   -- print(key)
-  if contains({"up", "down", "left", "right"}, cmd) then
-    amy:moveInDirection(cmd)
-  elseif cmd == "jump" then
-    amy:jump()
+  if gameState['mode'] == "ingame" then
+    if contains({"up", "down", "left", "right"}, cmd) then
+      amy:moveInDirection(cmd)
+    elseif cmd == "jump" then
+      amy:jump()
+    end
+  elseif gameState['mode'] == 'editor' then
+    if contains({"up", "down", "left", "right"}, cmd) then
+      camera:moveInDirection(cmd)
+    end
   end
 end
 
@@ -129,7 +135,7 @@ function drawLevel(currentLevel)
       end
       for row, rData in pairs(map[catName]) do
         for column, tile in pairs(rData) do
-          if tile ~= 0 then
+          if tile ~= 0 and tile:isOnScreen(camera) then
             love.graphics.draw(tile:drawArgs(camera, (settings['graphics']['scale'] * 32) * (tile:getPos()['x'] - 1), (settings['graphics']['scale'] * 32) * (tile:getPos()['y'] - 1), settings['graphics']['scale']))
           end
         end

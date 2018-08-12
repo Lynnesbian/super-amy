@@ -115,6 +115,9 @@ getPosFunctions = {
 			x = self.x + self.width / 2,
 			y = self.y + self.height / 2
 		}
+	end,
+	isOnScreen = function(self, cam)
+		
 	end
 }
 
@@ -433,6 +436,17 @@ function Camera:chase(target, xDistance, yDistance, yOffset)
 end
 function Camera:moveTowards(x, y, speed)
 	error("Not implemented yet")
+end
+function Camera:moveInDirection(dir)
+	if dir == "up" then
+		self.y = self.y - 0.1
+	elseif dir == "down" then
+		self.y = self.y + 0.1
+	elseif dir == "left" then
+		self.x = self.x - 0.1
+	elseif dir == "right" then
+		self.x = self.x + 0.1
+	end
 end
 
 Object = class("Object")

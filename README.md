@@ -7,7 +7,7 @@
 
 **[Available on itch.io!](https://deleeciouscheeps.itch.io/super-amy?password=super-amy)**
 
-Super Amy is a 2D platformer game written in LÖVE. You play as Amy on a quest to meet up with your girlfriend!
+Super Amy is a 2D platformer game written in LÖVE. You play as Amy, who is on a quest to meet up with her girlfriend!
 
 ![A screenshot of the game](https://raw.githubusercontent.com/deleeciousCheeps/super-amy/master/res/img/screenshot.png "A screenshot of the game")
 
