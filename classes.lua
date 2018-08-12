@@ -263,7 +263,7 @@ end
 function Entity:jump()
 	if self.grounded then
 		self.yVelocity = -8
-		playSound("jump")
+		if self.class.name == "nttAmy" then playSound("jump") end
 	end
 end
 function Entity:getImgFile()
