@@ -211,18 +211,21 @@ function Creature:processPhysics(dt, level)
 
 	if self.grounded then self.xVelocity = pullTowards(self.xVelocity, 0, 4 * dt) end
 
-	local oldX = self.x
 	local oldcol = #self:checkCollision(level)
+	local oldX = self.x
 	self.x = round(self.x + self.xVelocity * dt, 1/32)
-	if #self:checkCollision(level) ~= oldcol then
-		self.x = oldX
-		self.xVelocity = 0
+	local dir = 1
+	if oldX < self.x then dir = -1 end
+	while #self:checkCollision(level) ~= oldcol do
+		self.x = self.x + (1/32) * dir
 	end
+
 	local oldY = self.y
 	self.y = round(self.y + self.yVelocity * dt, 1/32)
-	if #self:checkCollision(level) ~= oldcol then
-		self.y = oldY
-		self.yVelocity = 0
+	dir = 1
+	if oldY < self.y then dir = -1 end
+	while #self:checkCollision(level) ~= oldcol do
+		self.y = self.y + (1/32) * dir
 	end
 
 end
