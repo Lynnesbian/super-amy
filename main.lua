@@ -51,12 +51,17 @@ require("entities")
 require("objects")
 require("controls")
 
+gameState = {
+	mode = "title", --display the title screen
+}
+
 --temp stuff
 mainGP = GamePack:new()
 mainGP:loadMainPack("main")
 local currentLevel = mainGP:getLevel(1, 1)
 currentLevel:prepare()
 amy = currentLevel:getAmy()
+gameState['mode'] = "ingame"
 --end temp stuff
 camera = Camera:new()
 camera.x, camera.y = 5, -5
@@ -98,9 +103,12 @@ function love.load()
 end
 
 function love.draw()
-	--draw level
-	camera:chase(amy, 4, 2, 3) --TODO: adapt this to the size of the screen!
-	drawLevel(currentLevel)
+	if gameState['mode'] == 'ingame' then
+		camera:chase(amy, 4, 2, 3) --TODO: adapt this to the size of the screen!
+	end
+	if contains({"ingame", "editor"}, gameState['mode']) then
+		drawLevel(currentLevel)
+	end
 
 	love.graphics.setColor(1,0,0)
 	love.graphics.print("FPS: "..love.timer.getFPS(), 20, 15)
