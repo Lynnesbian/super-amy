@@ -245,7 +245,7 @@ function Creature:moveInDirection(direction)
 			self.xVelocity = self.xVelocity + self.speed
 		end
 	elseif direction == "up" then
-		self.y = self.y - 0.1
+		self.y = self.y - 0.1 --this is debugging stuff
 	elseif direction == "down" then
 		self.y = self.y + 0.1
 	else
