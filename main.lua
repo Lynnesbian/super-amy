@@ -57,7 +57,7 @@ mainGP:loadMainPack("main")
 local currentLevel = mainGP:getLevel(1, 1)
 currentLevel:prepare()
 amy = currentLevel:getAmy()
---temp stuff
+--end temp stuff
 camera = Camera:new()
 camera.x, camera.y = 5, -5
 
