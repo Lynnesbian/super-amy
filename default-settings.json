@@ -4,5 +4,8 @@
 		"aberration":[true, 3],
 		"vignette":[true, 0.9, 0.25],
 		"scale":2
+	},
+	"game":{
+		"key-repeat-time":0.1,
 	}
 }
