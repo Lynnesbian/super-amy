@@ -316,7 +316,16 @@ function GamePack:initialize(name, description, acts)
 	self.acts = acts or {}
 end
 function GamePack:getString()
-	--convert gamepack to json
+	local output = {
+		name = self.name,
+		description = self.description,
+		author = self.author,
+		formatVersion = self.formatVersion,
+		compressionTable = {},
+		acts = {}
+	}
+
+	return json.encode(output)
 end
 function GamePack:save(path)
 	--write json
@@ -326,8 +335,8 @@ function GamePack:load(path, data)
 	if path ~= nil then
 		--read json file
 	end
-	self.name = data['name']
-	self.description = data["description"]
+	self.name, self.description, self.author, self.formatVersion =
+		data['name'], data['description'], data['author'], data['formatVersion']
 	self.acts = {}
 	for k, act in pairs(data['acts']) do
 		levels = {}
@@ -359,20 +368,40 @@ GameLevel = class("GameLevel")
 function GameLevel:initialize(level, compressionTable)
 	self.name = level['name']
 	self.mapPlan = level['map']
+	self.map = {}
+	self.objectsPlan = level['obj']
+	self.objects = {}
+	self.entitiesPlan = level['ntt']
+	self.entities = {}
 	for category, tbl in pairs(level['map']) do
 		for row, rData in pairs(tbl) do
 			for column, digit in pairs(rData) do
-				self.mapPlan[category][row][column] = compressionTable[digit]
+				if type(digit) == 'number' then
+					self.mapPlan[category][row][column] = compressionTable[digit]
+				elseif type(digit) == 'string' then
+					--do nothing
+				else
+					--instead of being e.g. 1, this "digit" is e.g. [1, 10], meaning 10 1's in a row
+					local tbl = cloneTable(digit)
+					table.remove(rData, column)
+					print(tbl)
+					print(unpack(tbl))
+					for i = 1, tbl[2] do
+						table.insert(self.mapPlan[category][row], column + i - 1, compressionTable[tbl[1]])
+					end
+				end
 			end
 		end
 	end
-	self.map = {}
+
+	for key, tbl in pairs({obj = self.objectsPlan, ntt = self.entitiesPlan}) do
+		for k, thingTable in pairs(tbl) do
+			thingTable[1] = compressionTable[thingTable[1]]
+			print(unpack(thingTable))
+		end
+	end
 	self.map['fg'] = {}
 	self.map['bg'] = {}
-	self.objectsPlan = level['obj']
-	self.objects = {}
-	self.entitiesPlan = level['entities']
-	self.entities = {}
 	self.bgColour = level['bgColour'] or {0, 0, 0}
 end
 function GameLevel:prepare()
