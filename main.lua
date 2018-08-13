@@ -79,7 +79,6 @@ local currentLevel = mainGP:getLevel(1, 1)
 currentLevel:prepare()
 amy = currentLevel:getAmy()
 gameState['mode'] = "ingame"
-print(mainGP:getString())
 --end temp stuff
 camera = Camera:new()
 camera.x, camera.y = 5, 2
