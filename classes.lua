@@ -344,6 +344,7 @@ function GamePack:getString()
 			}
 			for category, tbl in pairs(level.map) do
 				for rowNumber, row in pairs(tbl) do
+					pendingGroup = {nil, nil} --group multiple tiles together (e.g. [1, 4] instead of 1,1,1,1)
 					table.insert(output['acts'][k]['levels'][key]['map'][category], {})
 					for column, tile in pairs(row) do
 						if tile == 0 then
@@ -354,7 +355,30 @@ function GamePack:getString()
 						if not contains(output['compressionTable'], tileName) then
 							table.insert(output['compressionTable'], tileName)
 						end
-						table.insert(output['acts'][k]['levels'][key]['map'][category][rowNumber], keyFromValue(output['compressionTable'], tileName)) --woof
+						local id = keyFromValue(output['compressionTable'], tileName)
+
+						if pendingGroup[1] == id then
+							pendingGroup[2] = pendingGroup[2] + 1
+						else
+							if pendingGroup[2] ~= nil then
+								if pendingGroup[2] < 3 then
+									for i = 1, pendingGroup[2] do --[1, 1] and [1, 2] are both bigger than 1 and 1, 1
+										table.insert(output['acts'][k]['levels'][key]['map'][category][rowNumber], pendingGroup[1])
+									end
+								else
+									table.insert(output['acts'][k]['levels'][key]['map'][category][rowNumber], pendingGroup)
+								end
+							end
+							pendingGroup = {id, 1}
+						end
+					end
+
+					if pendingGroup[2] < 3 then
+						for i = 1, pendingGroup[2] do --[1, 1] and [1, 2] are both bigger than 1 and 1, 1
+							table.insert(output['acts'][k]['levels'][key]['map'][category][rowNumber], pendingGroup[1])
+						end
+					else
+						table.insert(output['acts'][k]['levels'][key]['map'][category][rowNumber], pendingGroup)
 					end
 				end
 			end
