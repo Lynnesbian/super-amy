@@ -89,6 +89,12 @@ end
 function handleCommand(cmd, dt)
   if cmd == "restart" then
     love.event.quit("restart")
+  elseif cmd == "toggle-mode" then
+    if gameState['mode'] == 'editor' then
+      gameState['mode'] = 'ingame'
+    else
+      gameState['mode'] = 'editor'
+    end
   end
   -- print(key)
   if gameState['mode'] == "ingame" then

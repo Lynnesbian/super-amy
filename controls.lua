@@ -9,5 +9,6 @@ controls = {
 	z = "jump",
 	space = "jump",
 	e = "interact",
-	r = "restart"
+	r = "restart", --debug
+	m = "toggle-mode" --debug
 }
