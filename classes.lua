@@ -469,3 +469,10 @@ end
 function Object:getImgFile()
 	return "objects.png"
 end
+
+Music = class("Music")
+function Music:initialize(track, loopStart, loopEnd)
+	self.track, self.loopStart, self.loopEnd = track, loopStart, loopEnd
+	self.source = cache['music'][track]
+	error("Unimplemented")
+end
