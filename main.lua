@@ -13,7 +13,7 @@ for k,cat in pairs({"tiles", "objects", "entities"}) do
 	metadata[cat] = {}
 end
 cache = {}
-for k,cat in pairs({"img", "sprites", "hitboxes", "sfx"}) do
+for k,cat in pairs({"img", "sprites", "hitboxes", "sfx", "music"}) do
 	cache[cat] = {}
 end
 metatables = {}
@@ -43,6 +43,14 @@ metatables['sfx'].__index = function(tbl, key)
 	return tbl[key]
 end
 setmetatable(cache["sfx"], metatables['sfx'])
+
+metatables["music"] = {}
+metatables['music'].__index = function(tbl, key) --this is very similar to the sfx one, is there a way we can combine them in a loop?
+	tbl[key] = love.audio.newSource(string.format("res/mus/ogg/%s.ogg", key), "streaming")
+	tbl[key]:setVolume(settings['game']['volume-music'])
+	return tbl[key]
+end
+setmetatable(cache["music"], metatables['music'])
 
 --REQUIRES
 require("functions")
