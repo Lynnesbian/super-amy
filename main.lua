@@ -5,7 +5,7 @@ the basic stuff, load, draw, etc.
 ░▀▀█░█░█░█▀▀░█▀▀░█▀▄░░░█▀█░█░█░░█░
 ░▀▀▀░▀▀▀░▀░░░▀▀▀░▀░▀░░░▀░▀░▀░▀░░▀░
 Copyright 2018 Lynnear Software!
-Available under the MIT licence. See the file "COPYING" for the text of the licence.
+Available under the MPLv2.0 licence. See the file "COPYING" for the text of the licence.
 ]]
 
 local class = require("lib.middleclass.middleclass")
