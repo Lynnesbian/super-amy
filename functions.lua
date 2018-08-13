@@ -87,9 +87,10 @@ end
 --GAME-SPECIFIC STUFF
 
 function handleCommand(cmd, dt)
+  gameState['key-repeat-timer'] = gameState['key-repeat-timer'] + dt
   if cmd == "restart" then
     love.event.quit("restart")
-  elseif cmd == "toggle-mode" then
+  elseif cmd == "toggle-mode" and gameState['key-repeat-timer'] > settings['game']['key-repeat-time'] then
     if gameState['mode'] == 'editor' then
       gameState['mode'] = 'ingame'
     else
@@ -107,6 +108,9 @@ function handleCommand(cmd, dt)
     if contains({"up", "down", "left", "right"}, cmd) then
       camera:moveInDirection(cmd, dt)
     end
+  end
+  if gameState['key-repeat-timer'] > settings['game']['key-repeat-time'] then
+    gameState['key-repeat-timer'] = gameState['key-repeat-timer'] - settings['game']['key-repeat-time']
   end
 end
 

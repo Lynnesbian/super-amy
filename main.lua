@@ -53,6 +53,7 @@ require("controls")
 
 gameState = {
 	mode = "title", --display the title screen
+	['key-repeat-timer'] = 0,
 }
 
 --temp stuff
@@ -112,7 +113,9 @@ function love.draw()
 
 	love.graphics.setColor(1,0,0)
 	love.graphics.print("FPS: "..love.timer.getFPS(), 20, 15)
-	love.graphics.print(string.format("Amy: %s, %s, %s (%s). Camera: %s, %s", amy.x, amy.y, amy.stateCluster, amy.state, camera.x, camera.y), 20, 25)
+	love.graphics.print(string.format("Amy: %s, %s, %s (%s). Camera: %s, %s",
+		round(amy.x, 0.1), round(amy.y, 0.1), amy.stateCluster, amy.state, camera.x, camera.y), 20, 30)
+	love.graphics.print("Gamemode: "..gameState['mode'], 20, 45)
 	-- love.graphics.print("x", (amy.x - 1) * 32 * settings['graphics']['scale'], (amy.y - 1) * 32 * settings['graphics']['scale'])
 	-- love.graphics.setColor(1, 0, 0, 0.5)
 	-- love.graphics.rectangle("fill", ((amy.x - 1) * 32 + amy.hitbox.xOffset) * settings['graphics']['scale'], ((amy.y - 1) * 32 + amy.hitbox.yOffset) * settings['graphics']['scale'], amy.hitbox.width * settings['graphics']['scale'], amy.hitbox.height * settings['graphics']['scale'])
