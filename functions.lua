@@ -137,7 +137,7 @@ function drawLevel(currentLevel)
       if catName == "fg" then
         --draw objects and entities before fg but after bg
         for k, category in pairs({"Objects", "Entities"}) do
-          for key, thing in pairs(currentLevel["get"..category](currentLevel)) do --todo: these two blocks are almost identical, merge them into one
+          for key, thing in pairs(currentLevel["get"..category](currentLevel)) do
             love.graphics.draw(thing:drawArgs(camera, (settings['graphics']['scale'] * 32) * (thing:getPos()['x'] - 1),
               (settings['graphics']['scale'] * 32) * (thing:getPos()['y'] - 1), settings['graphics']['scale']))
           end
