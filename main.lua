@@ -70,6 +70,7 @@ require("controls")
 gameState = {
 	mode = "title", --display the title screen
 	['key-repeat-timer'] = 0,
+	ui = {}
 }
 
 --temp stuff
@@ -81,7 +82,7 @@ amy = currentLevel:getAmy()
 gameState['mode'] = "ingame"
 --end temp stuff
 camera = Camera:new()
-camera.x, camera.y = 5, 2
+camera.x, camera.y = -5, 2
 
 function love.update(dt)
 	for k,v in pairs(controls) do
@@ -99,7 +100,7 @@ end
 
 function love.load()
 	love.window.setMode(1024, 768, {resizable = true})
-	camera:setSize(1024, 768)
+	camera:setSize(1024/32, 768/32)
 	if true or not love.filesystem.exists("settings.json") then --remove "true or" when releasing!
 		love.filesystem.write("settings.json", love.filesystem.read("default-settings.json"))
 	end
@@ -121,10 +122,14 @@ end
 
 function love.draw()
 	if gameState['mode'] == 'ingame' then
-		camera:chase(amy, 4, 2, 3) --TODO: adapt this to the size of the screen!
+		camera:chase(amy, 4, 2) --TODO: adapt this to the size of the screen!
 	end
 	if contains({"ingame", "editor"}, gameState['mode']) then
 		drawLevel(currentLevel)
+	end
+
+	if gameState['mode'] == 'editor' then
+		
 	end
 
 	love.graphics.setColor(1,0,0)

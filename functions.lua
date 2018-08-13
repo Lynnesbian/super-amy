@@ -154,7 +154,7 @@ function drawLevel(currentLevel)
       end
       for row, rData in pairs(map[catName]) do
         for column, tile in pairs(rData) do
-          if tile ~= 0 and tile:isOnScreen(camera) then
+          if tile ~= 0 and tile:isOnScreen(camera, 2) then
             love.graphics.draw(tile:drawArgs(camera, (settings['graphics']['scale'] * 32) * (tile:getPos()['x'] - 1), (settings['graphics']['scale'] * 32) * (tile:getPos()['y'] - 1), settings['graphics']['scale']))
           end
         end

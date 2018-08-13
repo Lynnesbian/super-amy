@@ -92,13 +92,14 @@ states = {
 	drawArgs = function(self, cam, screenX, screenY, scaleX, scaleY, noFlip)
 		if scaleX == nil then scaleX = 1 end
 		if scaleY == nil then scaleY = scaleX end
-		drawX = screenX - (cam.x * 32 * settings['graphics']['scale']) + cam.width / 2
+		drawX = screenX - (cam.x * 32 * settings['graphics']['scale']) + cam.width * 32 / 2
+		drawY = screenY - (cam.y * 32 * settings['graphics']['scale']) + cam.height * 32 / 2
 		if cache['img'] == nil then error(":c") end
 		if not noFlip and self:isInstanceOf(Entity) and self:isMovingLeft() then
 			scaleX = scaleX * -1
 			drawX = drawX + (self.width * settings['graphics']['scale'] * 32)
 		end
-		return cache['img'][self:getImgFile()], cache['sprites'][self:getImg()], drawX, screenY - cam.y * 32 * settings['graphics']['scale'], 0, scaleX, scaleY
+		return cache['img'][self:getImgFile()], cache['sprites'][self:getImg()], drawX, drawY, 0, scaleX, scaleY
 	end
 
 }
@@ -110,14 +111,36 @@ getPosFunctions = {
 		}
 		return pos
 	end,
+	getBounds = function(self, pixels)
+		local bounds = {
+			left = self.x,
+			right = self.x + self.width,
+			top = self.y,
+			bottom = self.y + self.height
+		}
+		if pixels then
+			for key, value in pairs(bounds) do
+				bounds[key] = value * 32
+			end
+		end
+		return bounds
+	end,
 	getCentre = function(self)
 		return {
 			x = self.x + self.width / 2,
 			y = self.y + self.height / 2
 		}
 	end,
-	isOnScreen = function(self, cam)
-		return true
+	isOnScreen = function(self, cam, leeway)
+		-- if true then return true end
+		if leeway == nil then leeway = 0 end
+		leeway = leeway * 32
+		local bounds = self:getBounds(true)
+		local cb = cam:getBounds(true)
+		return bounds['left'] + leeway > cb['left']
+			and bounds['top'] + leeway > cb['top']
+			and bounds['right'] - leeway < cb['right']
+			and bounds['bottom'] - leeway < cb['bottom']
 	end
 }
 
@@ -303,10 +326,7 @@ end
 Hitbox = class("Hitbox")
 function Hitbox:initialize(xOffset, yOffset, width, height)
 	--these values are in pixels rather than (pixels/32)!
-	self.xOffset = xOffset
-	self.yOffset = yOffset
-	self.height = height
-	self.width = width
+	self.xOffset, self.yOffset, self.height, self.width = xOffset, yOffset, height, width
 end
 
 GamePack = class("GamePack")
@@ -525,9 +545,9 @@ end
 function Camera:setPos(x, y)
 	self.x, self.y = x, y
 end
-function Camera:chase(target, xDistance, yDistance, yOffset)
+function Camera:chase(target, xDistance, yDistance)
 	local centre = target:getCentre()
-	centre['y'] = centre['y'] - yOffset * settings['graphics']['scale']
+	-- centre['y'] = centre['y'] - yOffset * settings['graphics']['scale']
 	while not withinXOf(centre['x'], self.x, xDistance) do
 		self.x = pullTowards(self.x, centre['x'], 1/32)
 	end
@@ -572,4 +592,12 @@ function Music:initialize(track, loopStart, loopEnd)
 	self.track, self.loopStart, self.loopEnd = track, loopStart, loopEnd
 	self.source = cache['music'][track]
 	error("Unimplemented")
+end
+
+uiElement = class("uiElement")
+uiElement:include(states)
+uiElement:include(getPosFunctions)
+
+function uiElement:initialize()
+
 end
