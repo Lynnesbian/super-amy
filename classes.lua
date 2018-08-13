@@ -418,7 +418,7 @@ function GamePack:load(path, data)
 	end
 end
 function GamePack:loadMainPack(gamePackID)
-	file, size = love.filesystem.read("string", string.format("lvl/gamepack-%s.json", gamePackID))
+	file, size = love.filesystem.read("string", string.format("lvl/%s/gamepack.json", gamePackID))
 	if not file then
 		error(string.format("Couldn't find GamePack for %s! This isn't your fault, blame the developer.", gamePackID))
 	end
