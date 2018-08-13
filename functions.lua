@@ -84,6 +84,15 @@ function contains(tbl, value)
   return false
 end
 
+function keyFromValue(tbl, value)
+  for k,v in pairs(tbl) do
+    if v == value then
+      return k
+    end
+  end
+  return nil
+end
+
 --GAME-SPECIFIC STUFF
 
 function handleCommand(cmd, dt)

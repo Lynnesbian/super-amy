@@ -1,6 +1,11 @@
 --MAIN.LUA
 --the basic stuff, load, draw, etc.
---Super Amy - Copyright 2018 Lynnear Software!
+-- ░█▀▀░█░█░█▀█░█▀▀░█▀▄░░░█▀█░█▄█░█░█
+-- ░▀▀█░█░█░█▀▀░█▀▀░█▀▄░░░█▀█░█░█░░█░
+-- ░▀▀▀░▀▀▀░▀░░░▀▀▀░▀░▀░░░▀░▀░▀░▀░░▀░
+-- Copyright 2018 Lynnear Software!
+-- Available under the MIT licence. See the file "COPYING" for the text of the licence.
+
 local class = require("lib.middleclass.middleclass")
 local moonshine = require('lib.moonshine')
 local json = require("lib.json.json")

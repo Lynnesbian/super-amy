@@ -316,6 +316,7 @@ function GamePack:initialize(name, description, acts)
 	self.acts = acts or {}
 end
 function GamePack:getString()
+	--convert gamepack to json
 	local output = {
 		name = self.name,
 		description = self.description,
@@ -324,6 +325,52 @@ function GamePack:getString()
 		compressionTable = {},
 		acts = {}
 	}
+
+	for k, act in pairs(self.acts) do
+		output['acts'][k] = {
+			name = act.name,
+			levels = {}
+		}
+		for key, level in pairs(act.levels) do
+			output['acts'][k]['levels'][key] = {
+				name = level.name,
+				bgColour = level.bgColour,
+				map = {
+					fg = {},
+					bg = {}
+				},
+				obj = {},
+				ntt = {}
+			}
+			for category, tbl in pairs(level.map) do
+				for rowNumber, row in pairs(tbl) do
+					table.insert(output['acts'][k]['levels'][key]['map'][category], {})
+					for column, tile in pairs(row) do
+						if tile == 0 then
+							tileName = "nil"
+						else
+							tileName = string.sub(tile.class.name, 5)
+						end
+						if not contains(output['compressionTable'], tileName) then
+							table.insert(output['compressionTable'], tileName)
+						end
+						table.insert(output['acts'][k]['levels'][key]['map'][category][rowNumber], keyFromValue(output['compressionTable'], tileName)) --woof
+					end
+				end
+			end
+
+			for identifier, tbl in pairs({obj = level.objects, ntt = level.entities}) do
+				for l, thing in pairs(tbl) do
+					local thingName = string.sub(thing.class.name, 4)
+					if not contains(output['compressionTable'], thingName) then
+						table.insert(output['compressionTable'], thingName)
+					end
+					
+					table.insert(output['acts'][k]['levels'][key][identifier], {keyFromValue(output['compressionTable'], thingName), thing.x, thing.y})
+				end
+			end
+		end
+	end
 
 	return json.encode(output)
 end
