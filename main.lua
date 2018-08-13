@@ -1,10 +1,12 @@
---MAIN.LUA
---the basic stuff, load, draw, etc.
--- ░█▀▀░█░█░█▀█░█▀▀░█▀▄░░░█▀█░█▄█░█░█
--- ░▀▀█░█░█░█▀▀░█▀▀░█▀▄░░░█▀█░█░█░░█░
--- ░▀▀▀░▀▀▀░▀░░░▀▀▀░▀░▀░░░▀░▀░▀░▀░░▀░
--- Copyright 2018 Lynnear Software!
--- Available under the MIT licence. See the file "COPYING" for the text of the licence.
+--[[
+MAIN.LUA
+the basic stuff, load, draw, etc.
+░█▀▀░█░█░█▀█░█▀▀░█▀▄░░░█▀█░█▄█░█░█
+░▀▀█░█░█░█▀▀░█▀▀░█▀▄░░░█▀█░█░█░░█░
+░▀▀▀░▀▀▀░▀░░░▀▀▀░▀░▀░░░▀░▀░▀░▀░░▀░
+Copyright 2018 Lynnear Software!
+Available under the MIT licence. See the file "COPYING" for the text of the licence.
+]]
 
 local class = require("lib.middleclass.middleclass")
 local moonshine = require('lib.moonshine')
