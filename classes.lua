@@ -384,8 +384,6 @@ function GameLevel:initialize(level, compressionTable)
 					--instead of being e.g. 1, this "digit" is e.g. [1, 10], meaning 10 1's in a row
 					local tbl = cloneTable(digit)
 					table.remove(rData, column)
-					print(tbl)
-					print(unpack(tbl))
 					for i = 1, tbl[2] do
 						table.insert(self.mapPlan[category][row], column + i - 1, compressionTable[tbl[1]])
 					end
@@ -397,7 +395,6 @@ function GameLevel:initialize(level, compressionTable)
 	for key, tbl in pairs({obj = self.objectsPlan, ntt = self.entitiesPlan}) do
 		for k, thingTable in pairs(tbl) do
 			thingTable[1] = compressionTable[thingTable[1]]
-			print(unpack(thingTable))
 		end
 	end
 	self.map['fg'] = {}
