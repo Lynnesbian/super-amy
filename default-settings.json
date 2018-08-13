@@ -7,5 +7,7 @@
 	},
 	"game":{
 		"key-repeat-time":0.1,
+		"volume-music":1,
+		"volume-sound":0.75,
 	}
 }

@@ -39,6 +39,7 @@ setmetatable(cache["hitboxes"], metatables['hitboxes'])
 metatables["sfx"] = {}
 metatables['sfx'].__index = function(tbl, key)
 	tbl[key] = love.audio.newSource(string.format("res/sfx/ogg/%s.ogg", key), "static")
+	tbl[key]:setVolume(settings['game']['volume-sound'])
 	return tbl[key]
 end
 setmetatable(cache["sfx"], metatables['sfx'])
