@@ -1,6 +1,6 @@
 {
 	"graphics":{
-		"crt":[true, 1.025],
+		"crt":[true, 1.03],
 		"aberration":[true, 3],
 		"vignette":[true, 0.9, 0.25],
 		"scale":2,
