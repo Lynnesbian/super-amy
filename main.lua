@@ -84,10 +84,15 @@ local currentLevel = mainGP:getLevel(1, 1)
 currentLevel:prepare()
 amy = currentLevel:getAmy()
 gameState['mode'] = "ingame"
-love.mouse.setCursor(gameState['ui']['cursors']['default'])
+-- love.mouse.setCursor(gameState['ui']['cursors']['default']) --causes a segfault on exit???
 --end temp stuff
 camera = Camera:new()
 camera.x, camera.y = -5, 2
+
+function love.resize(width, height)
+	shaders.resize(width, height)
+	camera:setSize(width, height)
+end
 
 function love.update(dt)
 	for k,v in pairs(controls) do
@@ -129,7 +134,7 @@ end
 function love.draw()
 	shaders(function()
 		if gameState['mode'] == 'ingame' then
-			camera:chase(amy, 4, 2) --TODO: adapt this to the size of the screen!
+			camera:chase(amy, 2, 2) --TODO: is this good enough? am *i* good enough?
 		end
 		if contains({"ingame", "editor"}, gameState['mode']) then
 			drawLevel(currentLevel)
