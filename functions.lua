@@ -133,33 +133,28 @@ end
 
 function drawLevel(currentLevel)
   local map = currentLevel:getMap()
-  -- love.graphics.setBackgroundColor(currentLevel:getBackgroundColour())
-  -- love.graphics.draw(ss:drawArgs(0, 0))
-  shaders(function()
-    --actually render the stuff
 
-    love.graphics.setColor(unpack(currentLevel:getBackgroundColour()))
-    love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
-    love.graphics.setColor(1, 1, 1)
+  love.graphics.setColor(unpack(currentLevel:getBackgroundColour()))
+  love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
+  love.graphics.setColor(1, 1, 1)
 
-    for key, catName in pairs({'bg', 'fg'}) do
-      if catName == "fg" then
-        --draw objects and entities before fg but after bg
-        for k, category in pairs({"Objects", "Entities"}) do
-          for key, thing in pairs(currentLevel["get"..category](currentLevel)) do
-            love.graphics.draw(thing:drawArgs(camera, (settings['graphics']['scale'] * 32) * (thing:getPos()['x'] - 1),
-              (settings['graphics']['scale'] * 32) * (thing:getPos()['y'] - 1), settings['graphics']['scale']))
-          end
-        end
-      end
-      for row, rData in pairs(map[catName]) do
-        for column, tile in pairs(rData) do
-          if tile ~= 0 and tile:isOnScreen(camera, 2) then
-            love.graphics.draw(tile:drawArgs(camera, (settings['graphics']['scale'] * 32) * (tile:getPos()['x'] - 1), (settings['graphics']['scale'] * 32) * (tile:getPos()['y'] - 1), settings['graphics']['scale']))
-          end
+  for key, catName in pairs({'bg', 'fg'}) do
+    if catName == "fg" then
+      --draw objects and entities before fg but after bg
+      for k, category in pairs({"Objects", "Entities"}) do
+        for key, thing in pairs(currentLevel["get"..category](currentLevel)) do
+          love.graphics.draw(thing:drawArgs(camera, (settings['graphics']['scale'] * 32) * (thing:getPos()['x'] - 1),
+            (settings['graphics']['scale'] * 32) * (thing:getPos()['y'] - 1), settings['graphics']['scale']))
         end
       end
     end
+    for row, rData in pairs(map[catName]) do
+      for column, tile in pairs(rData) do
+        if tile ~= 0 and tile:isOnScreen(camera, 2) then
+          love.graphics.draw(tile:drawArgs(camera, (settings['graphics']['scale'] * 32) * (tile:getPos()['x'] - 1), (settings['graphics']['scale'] * 32) * (tile:getPos()['y'] - 1), settings['graphics']['scale']))
+        end
+      end
+    end
+  end
 
-  end)
 end

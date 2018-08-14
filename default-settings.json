@@ -3,7 +3,8 @@
 		"crt":[true, 1.025],
 		"aberration":[true, 3],
 		"vignette":[true, 0.9, 0.25],
-		"scale":2
+		"scale":2,
+		"res":[1024,768]
 	},
 	"game":{
 		"key-repeat-time":0.1,

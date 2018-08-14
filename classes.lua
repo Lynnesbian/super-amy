@@ -132,7 +132,7 @@ getPosFunctions = {
 		}
 	end,
 	isOnScreen = function(self, cam, leeway)
-		-- if true then return true end
+		if true then return true end
 		if leeway == nil then leeway = 0 end
 		leeway = leeway * 32
 		local bounds = self:getBounds(true)
@@ -540,7 +540,7 @@ function Camera:initialize()
 	self.y = 0
 end
 function Camera:setSize(width, height)
-	self.width, self.height = width, height
+	self.pWidth, self.pHeight, self.width, self.height = width, height, width/32, height/32
 end
 function Camera:setPos(x, y)
 	self.x, self.y = x, y

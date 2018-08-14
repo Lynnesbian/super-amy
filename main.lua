@@ -99,12 +99,13 @@ function love.update(dt)
 end
 
 function love.load()
-	love.window.setMode(1024, 768, {resizable = true})
-	camera:setSize(1024/32, 768/32)
 	if true or not love.filesystem.exists("settings.json") then --remove "true or" when releasing!
 		love.filesystem.write("settings.json", love.filesystem.read("default-settings.json"))
 	end
 	settings = json.decode(love.filesystem.read("settings.json")) --todo: if this fails, copy the default
+
+	love.window.setMode(settings['graphics']['res'][1], settings['graphics']['res'][2], {resizable = true})
+	camera:setSize(unpack(settings['graphics']['res']))
 	shaders = moonshine(moonshine.effects.chromasep).chain(moonshine.effects.vignette).chain(moonshine.effects.crt)
 	shaders.parameters = {
 		chromasep = {
@@ -121,16 +122,27 @@ function love.load()
 end
 
 function love.draw()
-	if gameState['mode'] == 'ingame' then
-		camera:chase(amy, 4, 2) --TODO: adapt this to the size of the screen!
-	end
-	if contains({"ingame", "editor"}, gameState['mode']) then
-		drawLevel(currentLevel)
-	end
-
-	if gameState['mode'] == 'editor' then
+	shaders(function()
+		if gameState['mode'] == 'ingame' then
+			camera:chase(amy, 4, 2) --TODO: adapt this to the size of the screen!
+		end
+		if contains({"ingame", "editor"}, gameState['mode']) then
+			drawLevel(currentLevel)
+		end
 		
-	end
+		if gameState['mode'] == 'editor' then
+			love.graphics.setColor(0, 0, 0)
+			size = 32 * settings['graphics']['scale']
+			xOffset = (camera.x * size) % size
+			yOffset = (camera.y * size) % size
+			for x = 1, camera.pWidth + size, size do
+				for y = 1, camera.pHeight + size, size do
+					love.graphics.rectangle("line", x - xOffset, y - yOffset, size, size)
+				end
+			end
+		end
+
+ 	end)
 
 	love.graphics.setColor(1,0,0)
 	love.graphics.print("FPS: "..love.timer.getFPS(), 20, 15)
