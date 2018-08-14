@@ -52,18 +52,34 @@ tileVictoryGateFG = class("tileVictoryGateFG", Tile)
 function tileVictoryGateFG:initialize(x, y)
 	Tile.initialize(self, "tileVictoryGateFG", false, x, y)
 	self.solid = false
-	self:setGraphics(4, 3, 1, 1)
+	self:setGraphics(4, 2, 1, 1)
 end
 tileVictoryGateFG()
 
 tileVictoryGateTopFG = class("tileVictoryGateTopFG", Tile)
 function tileVictoryGateTopFG:initialize(x, y)
 	hb = getHitbox(8, 13, 17, 1)
-	Tile.initialize(self, "tileVictoryGateTopFG", false, x, y, hb) --todo: add hitbox
+	Tile.initialize(self, "tileVictoryGateTopFG", false, x, y, hb) --todo: add hitbox properly
 	-- self.solid = false
-	self:setGraphics(4, 2, 1, 1)
+	self:setGraphics(4, 1, 1, 1)
 end
 tileVictoryGateTopFG()
+
+tileBridgeRailsFG = class("tileBridgeRailsFG", Tile)
+function tileBridgeRailsFG:initialize(x, y)
+	Tile.initialize(self, "tileBridgeRailsFG", false, x, y)
+	self.solid = false
+	self:setGraphics(2, 3, 1, 1)
+end
+tileBridgeRailsFG()
+
+tileBridgeWood = class("tileBridgeWood", Tile)
+function tileBridgeWood:initialize(x, y)
+	hb = getHitbox(0, 0, 32, 8)
+	Tile.initialize(self, "tileBridgeWood", false, x, y, hb)
+	self:setGraphics(2, 4, 1, 1)
+end
+tileBridgeWood()
 
 -- BACKGROUND --
 tileCloudA = class("tileCloudA", Tile)
@@ -80,7 +96,14 @@ function tileCloudB:initialize(x, y)
 end
 tileCloudB()
 
-tileVictoryGateBG = class("tileVictoryGateFG", Tile)
+tileCloudC = class("tileCloudC", Tile)
+function tileCloudC:initialize(x, y)
+	Tile.initialize(self, "tileCloudC", true, x, y)
+	self:setGraphics(4, 0, 2, 1)
+end
+tileCloudC()
+
+tileVictoryGateBG = class("tileVictoryGateBG", Tile)
 function tileVictoryGateBG:initialize(x, y)
 	Tile.initialize(self, "tileVictoryGateBG", true, x, y)
 	self:setGraphics(1, 2, 1, 1)
@@ -93,3 +116,45 @@ function tileVictoryGateTopBG:initialize(x, y)
 	self:setGraphics(1, 1, 1, 1)
 end
 tileVictoryGateTopBG()
+
+tileWoodPanel = class("tileWoodPanel", Tile)
+function tileWoodPanel:initialize(x, y)
+	Tile.initialize(self, "tileWoodPanel", true, x, y)
+	self:setGraphics(0, 1, 1, 1)
+end
+tileWoodPanel()
+
+tileTreeA = class("tileTreeA", Tile)
+function tileTreeA:initialize(x, y)
+	Tile.initialize(self, "tileTreeA", true, x, y)
+	self:setGraphics(4, 1, 2, 3)
+end
+tileTreeA()
+
+tileFlowerA = class("tileFlowerA", Tile)
+function tileFlowerA:initialize(x, y)
+	Tile.initialize(self, "tileFlowerA", true, x, y)
+	self:setGraphics(6, 2, 1, 1)
+end
+tileFlowerA()
+
+tileFlowerB = class("tileFlowerB", Tile)
+function tileFlowerB:initialize(x, y)
+	Tile.initialize(self, "tileFlowerB", true, x, y)
+	self:setGraphics(6, 3, 1, 1)
+end
+tileFlowerB()
+
+tileFlowerC = class("tileFlowerC", Tile)
+function tileFlowerC:initialize(x, y)
+	Tile.initialize(self, "tileFlowerC", true, x, y)
+	self:setGraphics(6, 3, 1, 1)
+end
+tileFlowerC()
+
+tileBridgeRailsBG = class("tileBridgeRailsBG", Tile)
+function tileBridgeRailsBG:initialize(x, y)
+	Tile.initialize(self, "tileBridgeRailsBG", true, x, y)
+	self:setGraphics(0, 2, 1, 1)
+end
+tileBridgeRailsBG()
