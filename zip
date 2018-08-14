@@ -1,0 +1,3 @@
+#!/bin/sh
+rm super-amy.love
+zip -x nozip/\* *.git/\* -r9 super-amy.love .
