@@ -158,7 +158,7 @@ function Entity:initialize(name, x, y, hitboxes)
 	self.stateCluster = nil
 	self.animationTimer = 0
 	self.baseImg = nil
-	self.imgFile = "entities.png"
+	self.imgFile = "game/entities.png"
 	self.xVelocity = 0
 	self.yVelocity = 0
 	self.xvCap = 5
@@ -290,7 +290,7 @@ function Entity:jump()
 	end
 end
 function Entity:getImgFile()
-	return "entities.png"
+	return "game/entities.png"
 end
 
 Tile = class("Tile")
@@ -310,16 +310,16 @@ function Tile:initialize(name, bg, x, y, hitbox)
 	self.defaultHitbox = hitbox or getHitbox(0, 0, 32, 32)
 	self.hitbox = self.defaultHitbox
 	metadata['tiles'][self.class.name] = self.class
-	self.imgFile = iif(bg, "backgrounds.png", "tiles.png")
+	self.imgFile = "game/"..iif(bg, "backgrounds.png", "tiles.png")
 end
 function Tile:getQuad()
 	return cache['sprites'][self.img]
 end
 function Tile:getImgFile()
 	if self.bg then
-		return "backgrounds.png"
+		return "game/backgrounds.png"
 	else
-		return "tiles.png"
+		return "game/tiles.png"
 	end
 end
 
@@ -578,13 +578,13 @@ function Object:initialize(name, x, y, hitboxes, listeners)
 	--LISTENERS:
 	--collide - when object is collided with (an entity overlaps with the space it occupies)
 	--interact - when the player presses the interact key while overlapping the entity
-	self.imgFile = "objects.png"
+	self.imgFile = "game/objects.png"
 	self.states = {default={0}}
 	self.state = "default"
 	metadata['objects'][self.class.name] = self.class
 end
 function Object:getImgFile()
-	return "objects.png"
+	return "game/objects.png"
 end
 
 Music = class("Music")

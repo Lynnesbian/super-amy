@@ -70,7 +70,9 @@ require("controls")
 gameState = {
 	mode = "title", --display the title screen
 	['key-repeat-timer'] = 0,
-	ui = {}
+	ui = {
+		-- cursor = love.mouse.newCursor("res/img/ui/cursor.png", 0, 0)
+	}
 }
 
 --temp stuff
