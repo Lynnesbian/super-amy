@@ -71,7 +71,9 @@ gameState = {
 	mode = "title", --display the title screen
 	['key-repeat-timer'] = 0,
 	ui = {
-		-- cursor = love.mouse.newCursor("res/img/ui/cursor.png", 0, 0)
+		cursors = {
+			default = love.mouse.newCursor("res/img/ui/cursor/default.png", 0, 0)
+		}
 	}
 }
 
@@ -82,6 +84,7 @@ local currentLevel = mainGP:getLevel(1, 1)
 currentLevel:prepare()
 amy = currentLevel:getAmy()
 gameState['mode'] = "ingame"
+love.mouse.setCursor(gameState['ui']['cursors']['default'])
 --end temp stuff
 camera = Camera:new()
 camera.x, camera.y = -5, 2
