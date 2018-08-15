@@ -135,7 +135,6 @@ getPosFunctions = {
 		}
 	end,
 	isOnScreen = function(self, cam, leeway)
-		-- if true then return true end
 		if leeway == nil then leeway = 0 end
 		local sc = self:getCentre()
 		local cc = cam:getCentre()
