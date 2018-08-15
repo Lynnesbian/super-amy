@@ -96,17 +96,15 @@ end
 --GAME-SPECIFIC STUFF
 
 function handleCommand(cmd, dt)
-  gameState['key-repeat-timer'] = gameState['key-repeat-timer'] + dt
   if cmd == "restart" then
     love.event.quit("restart")
-  elseif cmd == "toggle-mode" and gameState['key-repeat-timer'] > settings['game']['key-repeat-time'] then
+  elseif cmd == "toggle-mode" and gameState['key-repeat-timer'] == 0 then
     if gameState['mode'] == 'editor' then
       gameState['mode'] = 'ingame'
     else
       gameState['mode'] = 'editor'
     end
   end
-  -- print(key)
   if gameState['mode'] == "ingame" then
     if contains({"up", "down", "left", "right"}, cmd) then
       amy:moveInDirection(cmd, dt)
@@ -118,8 +116,8 @@ function handleCommand(cmd, dt)
       camera:moveInDirection(cmd, dt)
     end
   end
-  if gameState['key-repeat-timer'] > settings['game']['key-repeat-time'] then
-    gameState['key-repeat-timer'] = gameState['key-repeat-timer'] - settings['game']['key-repeat-time']
+  if gameState['key-repeat-timer'] == 0 then
+    gameState['key-repeat-timer'] = settings['game']['key-repeat-time']
   end
 end
 

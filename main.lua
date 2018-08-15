@@ -102,16 +102,21 @@ function love.update(dt)
  --    print(love.report)
  --    love.profiler.reset()
  --  end
+
+ 	gameState['key-repeat-timer'] = gameState['key-repeat-timer'] - dt
+ 	if gameState['key-repeat-timer'] < 0 then gameState['key-repeat-timer'] = 0 end
 	for k,v in pairs(controls) do
 		if love.keyboard.isDown(k) then
 			handleCommand(v, dt)
 		end
 	end
 	for key, entity in pairs(getAllInstancesOf(Entity, currentLevel:getEntities())) do
-		entity:processPhysics(dt, currentLevel)
-		-- entity:updateCollision(currentLevel)
-		entity:calculateState()
-		entity:animate(dt)
+		if entity:isOnScreen(camera) then
+			entity:processPhysics(dt, currentLevel)
+			-- entity:updateCollision(currentLevel)
+			entity:calculateState()
+			entity:animate(dt)
+		end
 	end
 end
 
@@ -167,8 +172,8 @@ function love.draw()
 
 	love.graphics.setColor(1,0,0)
 	love.graphics.print("FPS: "..love.timer.getFPS(), 20, 15)
-	love.graphics.print(string.format("Amy: %s, %s, %s (%s). Camera: %s, %s",
-		round(amy.x, 0.1), round(amy.y, 0.1), amy.stateCluster, amy.state, camera.x, camera.y), 20, 30)
+	love.graphics.print(string.format("Amy: %s, %s (%s). Camera: %s, %s",
+		round(amy.x, 0.1), round(amy.y, 0.1), amy.grounded, camera.x, camera.y), 20, 30)
 	love.graphics.print("Gamemode: "..gameState['mode'], 20, 45)
 	-- love.graphics.print("x", (amy.x - 1) * 32 * settings['graphics']['scale'], (amy.y - 1) * 32 * settings['graphics']['scale'])
 	-- love.graphics.setColor(1, 0, 0, 0.5)
