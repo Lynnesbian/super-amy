@@ -75,6 +75,12 @@ gameState = {
 		cursors = {
 			default = love.mouse.newCursor("res/img/ui/cursor/default.png", 0, 0)
 		}
+	},
+	editor = {
+		activeTile = {
+			x = 0,
+			y = 0
+		}
 	}
 }
 
@@ -158,13 +164,25 @@ function love.draw()
 		end
 		
 		if gameState['mode'] == 'editor' then
+			--draw grid
 			love.graphics.setColor(0, 0, 0)
 			size = 32 * settings['graphics']['scale']
 			xOffset = (camera.x * size) % size
 			yOffset = (camera.y * size) % size
+			m = {
+				x = love.mouse.getX() + xOffset,
+				y = love.mouse.getY() + yOffset
+			}
 			for x = 1, camera.pWidth + size, size do
 				for y = 1, camera.pHeight + size, size do
 					love.graphics.rectangle("line", x - xOffset, y - yOffset, size, size)
+					if x <= m['x'] and x + size > m['x'] and y <= m['y'] and y + size > m['y'] then
+						gameState['editor']['activeTile']['x'] = round(x / size, 1)
+						gameState['editor']['activeTile']['y'] = round(y / size, 1)
+						love.graphics.setColor(1, 1, 1, 0.25)
+						love.graphics.rectangle("fill", x - xOffset, y - yOffset, size, size)
+						love.graphics.setColor(0, 0, 0)
+					end
 				end
 			end
 		end
