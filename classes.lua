@@ -135,15 +135,11 @@ getPosFunctions = {
 		}
 	end,
 	isOnScreen = function(self, cam, leeway)
-		if true then return true end
+		-- if true then return true end
 		if leeway == nil then leeway = 0 end
-		leeway = leeway * 32
-		local bounds = self:getBounds(true)
-		local cb = cam:getBounds(true)
-		return bounds['left'] + leeway > cb['left']
-			and bounds['top'] + leeway > cb['top']
-			and bounds['right'] - leeway < cb['right']
-			and bounds['bottom'] - leeway < cb['bottom']
+		local sc = self:getCentre()
+		local cc = cam:getCentre()
+		return withinXOf(sc['x'], cc['x'], cam.width + leeway) and withinXOf(sc['y'], cc['y'], cam.height + leeway)
 	end
 }
 

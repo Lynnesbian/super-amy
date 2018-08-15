@@ -143,14 +143,16 @@ function drawLevel(currentLevel)
       --draw objects and entities before fg but after bg
       for k, category in pairs({"Objects", "Entities"}) do
         for key, thing in pairs(currentLevel["get"..category](currentLevel)) do
-          love.graphics.draw(thing:drawArgs(camera, (settings['graphics']['scale'] * 32) * (thing:getPos()['x'] - 1),
+          if thing:isOnScreen(camera) then
+            love.graphics.draw(thing:drawArgs(camera, (settings['graphics']['scale'] * 32) * (thing:getPos()['x'] - 1),
             (settings['graphics']['scale'] * 32) * (thing:getPos()['y'] - 1), settings['graphics']['scale']))
+          end
         end
       end
     end
     for row, rData in pairs(map[catName]) do
       for column, tile in pairs(rData) do
-        if tile ~= 0 and tile:isOnScreen(camera, 2) then
+        if tile ~= 0 and tile:isOnScreen(camera) then
           love.graphics.draw(tile:drawArgs(camera, (settings['graphics']['scale'] * 32) * (tile:getPos()['x'] - 1), (settings['graphics']['scale'] * 32) * (tile:getPos()['y'] - 1), settings['graphics']['scale']))
         end
       end
