@@ -59,8 +59,8 @@ tileVictoryGateFG()
 tileVictoryGateTopFG = class("tileVictoryGateTopFG", Tile)
 function tileVictoryGateTopFG:initialize(x, y)
 	hb = getHitbox(8, 13, 17, 1)
+	hb = getHitbox(8, 7, 17, 8)
 	Tile.initialize(self, "tileVictoryGateTopFG", false, x, y, hb) --todo: add hitbox properly
-	-- self.solid = false
 	self:setGraphics(4, 1, 1, 1)
 end
 tileVictoryGateTopFG()

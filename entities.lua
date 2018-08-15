@@ -44,11 +44,11 @@ function nttAmy:initialize(x, y)
 	self.powers = {}
 end
 function nttAmy:calculateState()
-	if (not self.grounded) and self.yVelocity > 9 then
+	if (not self.grounded) and self.velocity['y'] > 9 then
 		self.stateCluster = "fall"
 		return
 	end
-	if self.xVelocity ~= 0 then
+	if self.velocity['x'] ~= 0 then
 		self.stateCluster = "run"
 	else
 		self.state = "default"
@@ -78,7 +78,7 @@ function nttSlime:initialize(x, y)
 	self.powers = {}
 end
 function nttSlime:calculateState()
-	if self.xVelocity == 0 then
+	if self.velocity['x'] == 0 then
 		self.stateCluster = "idle"
 	else
 		self.stateCluster = nil

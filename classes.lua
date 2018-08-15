@@ -95,21 +95,24 @@ states = {
 		drawX = screenX - (cam.x * 32 * settings['graphics']['scale']) + cam.width * 32 / 2
 		drawY = screenY - (cam.y * 32 * settings['graphics']['scale']) + cam.height * 32 / 2
 		if cache['img'] == nil then error(":c") end
-		if not noFlip and self:isInstanceOf(Entity) and self:isMovingLeft() then
+		if not noFlip and self.class.name:sub(1,3) == 'ntt' and self:isMovingLeft() then
 			scaleX = scaleX * -1
 			drawX = drawX + (self.width * settings['graphics']['scale'] * 32)
 		end
 		return cache['img'][self:getImgFile()], cache['sprites'][self:getImg()], drawX, drawY, 0, scaleX, scaleY
-	end
+	end,
+
+	getImgFile = function(self)
+		return self.imgFile
+	end,
 
 }
 getPosFunctions = {
 	getPos = function(self)
-		pos = {
+		return {
 			['x'] = self.x,
 			['y'] = self.y
 		}
-		return pos
 	end,
 	getBounds = function(self, pixels)
 		local bounds = {
@@ -159,10 +162,14 @@ function Entity:initialize(name, x, y, hitboxes)
 	self.animationTimer = 0
 	self.baseImg = nil
 	self.imgFile = "game/entities.png"
-	self.xVelocity = 0
-	self.yVelocity = 0
-	self.xvCap = 5
-	self.yvCap = 15
+	self.velocity = {
+		x = 0,
+		y = 0
+	}
+	self.vCap = {
+		x = 5,
+		y = 15
+	}
 	self.speed = 15
 	self.movingLeft = false
 	-- self.defaultHitboxes = hitboxes
@@ -180,8 +187,8 @@ function Entity:initialize(name, x, y, hitboxes)
 end
 
 function Entity:isMovingLeft()
-	if self.xVelocity ~= 0 then
-		self.movingLeft = self.xVelocity < 0
+	if self.velocity['x'] ~= 0 then
+		self.movingLeft = self.velocity['x'] < 0
 	end
 	return self.movingLeft
 end
@@ -224,40 +231,37 @@ function Entity:processPhysics(dt, level)
 	--TODO: clean this up, it's really messy
 	self:groundingCheck(level)
 	if not self.grounded then
-		self.yVelocity = self.yVelocity + 15 * dt
+		self.velocity['y'] = self.velocity['y'] + 15 * dt
 	else
-		if self.yVelocity > 0 then self.yVelocity = 0 end --stop falling if you're on the ground
+		if self.velocity['y'] > 0 then self.velocity['y'] = 0 end --stop falling if you're on the ground
 	end
 
-	if math.abs(self.xVelocity) > self.xvCap then
-		local dir = 1
-		if self.xVelocity < 0 then dir = -1 end
-		self.xVelocity = pullTowards(self.xVelocity, dir * self.xvCap, 10 * dt)
-	end
-	if math.abs(self.yVelocity) > self.yvCap then
-		local dir = 1
-		if self.yVelocity < 0 then dir = -1 end
-		self.yVelocity = pullTowards(self.yVelocity, dir * self.yvCap, 10 * dt)
+	for key, prop in pairs({'x', 'y'}) do
+		if math.abs(self.velocity[prop]) > self.vCap[prop] then
+			local dir = 1
+			if self.velocity[prop] < 0 then dir = -1 end
+			self.velocity[prop] = pullTowards(self.velocity[prop], dir * self.vCap[prop], 10 * dt)
+		end
 	end
 
-	self.xVelocity = pullTowards(self.xVelocity, 0, 4 * dt)
+	self.velocity['x'] = pullTowards(self.velocity['x'], 0, 4 * dt)
 
 	local oldcol = #self:checkCollision(level)
 	local oldX = self.x
-	self.x = round(self.x + self.xVelocity * dt, 1/32)
+	self.x = round(self.x + self.velocity['x'] * dt, 1/32)
 	local dir = 1
 	if oldX < self.x then dir = -1 end
 	while #self:checkCollision(level) ~= oldcol do
-		self.xVelocity = 0
+		self.velocity['x'] = 0
 		self.x = round(self.x + (1/32) * dir, 1/32)
 	end
 
 	local oldY = self.y
-	self.y = round(self.y + self.yVelocity * dt, 1/32)
+	self.y = round(self.y + self.velocity['y'] * dt, 1/32)
 	dir = 1
 	if oldY < self.y then dir = -1 end
 	while #self:checkCollision(level) ~= oldcol do
-		self.yVelocity = 0
+		self.velocity['y'] = 0
 		self.y = round(self.y + (1/32) * dir, 1/32)
 	end
 
@@ -265,15 +269,15 @@ end
 function Entity:moveInDirection(direction, dt)
 	if direction == "left" then
 		if self:isMovingLeft() then
-			self.xVelocity = self.xVelocity - self.speed * dt
+			self.velocity['x'] = self.velocity['x'] - self.speed * dt
 		else
-			self.xVelocity = self.xVelocity - self.speed * 2 * dt
+			self.velocity['x'] = self.velocity['x'] - self.speed * 2 * dt
 		end
 	elseif direction == "right" then
 		if self:isMovingLeft() then
-			self.xVelocity = self.xVelocity + self.speed * 2 * dt
+			self.velocity['x'] = self.velocity['x'] + self.speed * 2 * dt
 		else
-			self.xVelocity = self.xVelocity + self.speed * dt
+			self.velocity['x'] = self.velocity['x'] + self.speed * dt
 		end
 	elseif direction == "up" then
 		self.y = self.y - 0.1 --this is debugging stuff
@@ -285,12 +289,9 @@ function Entity:moveInDirection(direction, dt)
 end
 function Entity:jump()
 	if self.grounded then
-		self.yVelocity = -8
+		self.velocity['y'] = -8
 		if self.class.name == "nttAmy" then playSound("jump") end
 	end
-end
-function Entity:getImgFile()
-	return "game/entities.png"
 end
 
 Tile = class("Tile")
@@ -582,9 +583,6 @@ function Object:initialize(name, x, y, hitboxes, listeners)
 	self.states = {default={0}}
 	self.state = "default"
 	metadata['objects'][self.class.name] = self.class
-end
-function Object:getImgFile()
-	return "game/objects.png"
 end
 
 Music = class("Music")

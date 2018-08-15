@@ -94,7 +94,14 @@ function love.resize(width, height)
 	camera:setSize(width, height)
 end
 
+love.frame = 0
 function love.update(dt)
+	-- love.frame = love.frame + 1
+ --  if love.frame%100 == 0 then
+ --    love.report = love.profiler.report('time', 20)
+ --    print(love.report)
+ --    love.profiler.reset()
+ --  end
 	for k,v in pairs(controls) do
 		if love.keyboard.isDown(k) then
 			handleCommand(v, dt)
@@ -109,6 +116,10 @@ function love.update(dt)
 end
 
 function love.load()
+	-- love.profiler = require('lib.profile.profile') 
+ --  love.profiler.hookall("Lua")
+ --  love.profiler.start()
+
 	if true or not love.filesystem.exists("settings.json") then --remove "true or" when releasing!
 		love.filesystem.write("settings.json", love.filesystem.read("default-settings.json"))
 	end
