@@ -171,6 +171,7 @@ function love.draw()
 
  	end)
 
+	--debug overlay
 	love.graphics.setColor(1,0,0)
 	love.graphics.print("FPS: "..love.timer.getFPS(), 20, 15)
 	love.graphics.print(string.format("Amy: %s, %s (%s). Camera: %s, %s",

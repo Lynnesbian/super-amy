@@ -167,9 +167,7 @@ function Entity:initialize(name, x, y, hitboxes)
 	}
 	self.speed = 15
 	self.movingLeft = false
-	-- self.defaultHitboxes = hitboxes
 	self.collidingWith = {}
-	-- self.lowestHitbox = hitboxes[1]
 	local lowest = 0
 	for key, hitbox in pairs(hitboxes) do
 		lowpoint = hitbox.xOffset + hitbox.height
@@ -242,6 +240,7 @@ function Entity:processPhysics(dt, level)
 	self.velocity['x'] = pullTowards(self.velocity['x'], 0, 4 * dt)
 
 	local oldcol = #self:checkCollision(level)
+	--todo: make this a loop
 	local oldX = self.x
 	self.x = round(self.x + self.velocity['x'] * dt, 1/32)
 	local dir = 1
