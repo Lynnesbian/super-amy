@@ -69,6 +69,7 @@ require("controls")
 
 gameState = {
 	mode = "title", --display the title screen
+	submode = nil, --e.g. mode=editor, submode=select-tile
 	['key-repeat-timer'] = 0,
 	ui = {
 		cursors = {
