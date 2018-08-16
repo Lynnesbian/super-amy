@@ -20,7 +20,7 @@ function reverse(tbl) --https://gist.github.com/balaam/3122129#gistcomment-16803
   end
 end
 
----Returns true is `key` is in `tbl`.
+---Returns true if <tt>key</tt> is in <tt>tbl</tt>.
 --@param key The key to search for
 --@param tbl The table to search
 --@return boolean
@@ -45,7 +45,7 @@ function cloneTable(tbl, seen) --thanks to https://stackoverflow.com/a/26367080/
   return res
 end
 
---- Whether or not two variables are within `threshold` of each other.
+--- Whether or not two variables are within <tt>threshold</tt> of each other.
 --@param varA The first variable for comparison
 --@param varB The second
 --@param threshold The distance to look for
@@ -54,9 +54,9 @@ function withinXOf(varA, varB, threshold)
 	return math.abs(varA - varB) <= threshold
 end
 
---- Move `value` at most `stepSize` steps towards `value`. As Lua does not allow for modifying parameters, instead of changing `value` in place, this function returns a new value to use for `value`.
+--- Move <tt>value</tt> at most <tt>stepSize</tt> steps towards <tt>value</tt>. As Lua does not allow for modifying parameters, instead of changing <tt>value</tt> in place, this function returns a new value to use for <tt>value</tt>.
 --@param value The number value to pull
---@param target The target to pull `value` towards
+--@param target The target to pull <tt>value</tt> towards
 --@param stepsize How big a step the function makes
 --@return number
 function pullTowards(value, target, stepSize)
@@ -71,18 +71,18 @@ function pullTowards(value, target, stepSize)
   end
 end
 
----Inline if statement. If `condition`, then return `x`, else `y`. Similar to the ternary operator, although both `x` and `y` are always evaluated.
+---Inline if statement. If <tt>condition</tt>, then return <tt>x</tt>, else <tt>y</tt>. Similar to the ternary operator, although both <tt>x</tt> and <tt>y</tt> are always evaluated.
 --@param condition The condition to test
---@param x Return this if `condition` is true
---@param y Return this if `condition` is false
+--@param x Return this if <tt>condition</tt> is true
+--@param y Return this if <tt>condition</tt> is false
 --@return boolean
 function iif(condition, x, y) --NOTE: both x and y are always evaluated!
 	if condition then return x else return y end
 end
 
----Rounds a number to the nearest `multiple`.
+---Rounds a number to the nearest <tt>multiple</tt>.
 --@param x The number to round
---@param multiple The multiple to round `x` to
+--@param multiple The multiple to round <tt>x</tt> to
 --@return number
 function round(x, multiple) --lua...
   return math.floor((x + multiple / 2) / multiple) * multiple

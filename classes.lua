@@ -295,6 +295,16 @@ end
 Tile = class("Tile")
 Tile:include(states)
 Tile:include(getPosFunctions)
+---Parent class for all tiles
+--@name Tile
+--@param name The name of the tile
+--@param bg Is this a background tile? (boolean)
+--@param x X coordinate
+--@param y Y coordinate
+--@param solid Whether or not the tile is solid. If it's not, entities will be able to pass through it.
+--@param bouncy Whether or not the tile causes entities to bounce off it
+--@param usesStates Does this tile have states to animate between?
+--@todo penis
 function Tile:initialize(name, bg, x, y, hitbox)
 	self.name, self.bg, self.x, self.y = name, bg, x, y
 	self.solid = true

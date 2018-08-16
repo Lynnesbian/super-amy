@@ -176,7 +176,7 @@ function love.draw()
 		if gameState['mode'] == 'ingame' then
 			camera:chase(amy, 2, 2) --TODO: is this good enough? am *i* good enough?
 		end
-		if contains({"ingame", "editor"}, gameState['mode']) then
+		if contains({"ingame", "editor"},gameState['mode']) then
 			drawLevel(currentLevel)
 		end
 		
