@@ -20,6 +20,10 @@ function reverse(tbl) --https://gist.github.com/balaam/3122129#gistcomment-16803
   end
 end
 
+---Returns true is `key` is in `tbl`.
+--@param key The key to search for
+--@param tbl The table to search
+--@return boolean
 function inArray(key, tbl)
 	for k,v in pairs(tbl) do
 		if (v == key) then return true end
@@ -27,13 +31,17 @@ function inArray(key, tbl)
 	return false
 end
 
-function cloneTable(obj, seen) --thanks to https://stackoverflow.com/a/26367080/4480824
-  if type(obj) ~= 'table' then return obj end
-  if seen and seen[obj] then return seen[obj] end
+---Deeply clones a table.
+--@param tbl The table to clone
+--@param seen Used when the function calls itself. Don't pass this argument when calling the function yourself.
+--@return table
+function cloneTable(tbl, seen) --thanks to https://stackoverflow.com/a/26367080/4480824
+  if type(tbl) ~= 'table' then return tbl end
+  if seen and seen[tbl] then return seen[tbl] end
   local s = seen or {}
-  local res = setmetatable({}, getmetatable(obj))
-  s[obj] = res
-  for k, v in pairs(obj) do res[cloneTable(k, s)] = cloneTable(v, s) end
+  local res = setmetatable({}, getmetatable(tbl))
+  s[tbl] = res
+  for k, v in pairs(tbl) do res[cloneTable(k, s)] = cloneTable(v, s) end
   return res
 end
 
@@ -41,10 +49,16 @@ end
 --@param varA The first variable for comparison
 --@param varB The second
 --@param threshold The distance to look for
+--@return boolean
 function withinXOf(varA, varB, threshold)
 	return math.abs(varA - varB) <= threshold
 end
 
+--- Move `value` at most `stepSize` steps towards `value`. As Lua does not allow for modifying parameters, instead of changing `value` in place, this function returns a new value to use for `value`.
+--@param value The number value to pull
+--@param target The target to pull `value` towards
+--@param stepsize How big a step the function makes
+--@return number
 function pullTowards(value, target, stepSize)
   if stepSize == nil then stepSize = 1 end
   if withinXOf(math.abs(value), target, stepSize) then
@@ -57,10 +71,19 @@ function pullTowards(value, target, stepSize)
   end
 end
 
+---Inline if statement. If `condition`, then return `x`, else `y`. Similar to the ternary operator, although both `x` and `y` are always evaluated.
+--@param condition The condition to test
+--@param x Return this if `condition` is true
+--@param y Return this if `condition` is false
+--@return boolean
 function iif(condition, x, y) --NOTE: both x and y are always evaluated!
 	if condition then return x else return y end
 end
 
+---Rounds a number to the nearest `multiple`.
+--@param x The number to round
+--@param multiple The multiple to round `x` to
+--@return number
 function round(x, multiple) --lua...
   return math.floor((x + multiple / 2) / multiple) * multiple
 end

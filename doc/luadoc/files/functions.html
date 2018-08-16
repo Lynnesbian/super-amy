@@ -92,6 +92,31 @@
 <table class="function_list">
 
     <tr>
+    <td class="name" nowrap><a href="#cloneTable">cloneTable</a>&nbsp;(tbl, seen)</td>
+    <td class="summary">Deeply clones a table.</td>
+    </tr>
+
+    <tr>
+    <td class="name" nowrap><a href="#iif">iif</a>&nbsp;(condition, x, y)</td>
+    <td class="summary">Inline if statement.</td>
+    </tr>
+
+    <tr>
+    <td class="name" nowrap><a href="#inArray">inArray</a>&nbsp;(key, tbl)</td>
+    <td class="summary">Returns true is `key` is in `tbl`.</td>
+    </tr>
+
+    <tr>
+    <td class="name" nowrap><a href="#pullTowards">pullTowards</a>&nbsp;(value, target, stepSize, stepsize)</td>
+    <td class="summary">Move `value` at most `stepSize` steps towards `value`.</td>
+    </tr>
+
+    <tr>
+    <td class="name" nowrap><a href="#round">round</a>&nbsp;(x, multiple)</td>
+    <td class="summary">Rounds a number to the nearest `multiple`.</td>
+    </tr>
+
+    <tr>
     <td class="name" nowrap><a href="#withinXOf">withinXOf</a>&nbsp;(varA, varB, threshold)</td>
     <td class="summary">Whether or not two variables are within `threshold` of each other.</td>
     </tr>
@@ -111,6 +136,183 @@
 
 <h2><a name="functions"></a>Functions</h2>
 <dl class="function">
+
+
+
+<dt><a name="cloneTable"></a><strong>cloneTable</strong>&nbsp;(tbl, seen)</dt>
+<dd>
+Deeply clones a table.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  tbl: The table to clone
+	</li>
+	
+	<li>
+	  seen: Used when the function calls itself. Don't pass this argument when calling the function yourself.
+	</li>
+	
+</ul>
+
+
+
+
+
+
+<h3>Return value:</h3>
+table
+
+
+
+</dd>
+
+
+
+
+<dt><a name="iif"></a><strong>iif</strong>&nbsp;(condition, x, y)</dt>
+<dd>
+Inline if statement. If `condition`, then return `x`, else `y`. Similar to the ternary operator, although both `x` and `y` are always evaluated.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  condition: The condition to test
+	</li>
+	
+	<li>
+	  x: Return this if `condition` is true
+	</li>
+	
+	<li>
+	  y: Return this if `condition` is false
+	</li>
+	
+</ul>
+
+
+
+
+
+
+<h3>Return value:</h3>
+boolean
+
+
+
+</dd>
+
+
+
+
+<dt><a name="inArray"></a><strong>inArray</strong>&nbsp;(key, tbl)</dt>
+<dd>
+Returns true is `key` is in `tbl`.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  key: The key to search for
+	</li>
+	
+	<li>
+	  tbl: The table to search
+	</li>
+	
+</ul>
+
+
+
+
+
+
+<h3>Return value:</h3>
+boolean
+
+
+
+</dd>
+
+
+
+
+<dt><a name="pullTowards"></a><strong>pullTowards</strong>&nbsp;(value, target, stepSize, stepsize)</dt>
+<dd>
+Move `value` at most `stepSize` steps towards `value`. As Lua does not allow for modifying parameters, instead of changing `value` in place, this function returns a new value to use for `value`.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  value: The number value to pull
+	</li>
+	
+	<li>
+	  target: The target to pull `value` towards
+	</li>
+	
+	<li>
+	  stepSize: 
+	</li>
+	
+	<li>
+	  stepsize: How big a step the function makes
+	</li>
+	
+</ul>
+
+
+
+
+
+
+<h3>Return value:</h3>
+number
+
+
+
+</dd>
+
+
+
+
+<dt><a name="round"></a><strong>round</strong>&nbsp;(x, multiple)</dt>
+<dd>
+Rounds a number to the nearest `multiple`.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  x: The number to round
+	</li>
+	
+	<li>
+	  multiple: The multiple to round `x` to
+	</li>
+	
+</ul>
+
+
+
+
+
+
+<h3>Return value:</h3>
+number
+
+
+
+</dd>
+
 
 
 
@@ -140,6 +342,9 @@ Whether or not two variables are within `threshold` of each other.
 
 
 
+
+<h3>Return value:</h3>
+boolean
 
 
 
