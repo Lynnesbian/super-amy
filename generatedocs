@@ -1,5 +1,10 @@
-#!/bin/sh
+#!/bin/bash
 docdir="doc/luadoc"
 rm -rf "$docdir"
 mkdir "$docdir"
 luadoc -d "$docdir" *.lua
+find . -type f -name "*.html" |
+while read f; do
+	echo "Minifying $f..."
+	html-minifier --removeComments --removeRedundantAttributes -o "$f" "$f"
+done
