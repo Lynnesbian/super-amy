@@ -27,7 +27,7 @@ If you want to get Super Amy from GitHub instead (and ensure you have the latest
 To run this game, you'll need [LÖVE](https://love2d.org/) version 11.1. Versions below 11 won't work, and later versions might introduce breaking changes. 11.0 *should* be fine, but I haven't tested it.
 
 To edit the provided files, you'll need the following:
-- [GIMP](https://www.gimp.org/) v2.10 or later for the .xcf files in `res/img`
+- [GIMP](https://www.gimp.org/) v2.10 or later for the .xcf files in `res/img/xcf`
 - [DefleMask](http://www.deflemask.com/) for the .dmf files in `res/mus/dmf` and `res/sfx/dmf`
 
 All of this software is available for Windows, Mac, and Linux, free of charge.
