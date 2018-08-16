@@ -1,0 +1,5 @@
+#!/bin/sh
+docdir="doc/luadoc"
+rm -rf "$docdir"
+mkdir "$docdir"
+luadoc -d "$docdir" *.lua

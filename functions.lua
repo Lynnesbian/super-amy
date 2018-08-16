@@ -37,6 +37,10 @@ function cloneTable(obj, seen) --thanks to https://stackoverflow.com/a/26367080/
   return res
 end
 
+--- Whether or not two variables are within `threshold` of each other.
+--@param varA The first variable for comparison
+--@param varB The second
+--@param threshold The distance to look for
 function withinXOf(varA, varB, threshold)
 	return math.abs(varA - varB) <= threshold
 end
