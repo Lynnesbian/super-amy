@@ -69,7 +69,7 @@ require("controls")
 
 gameState = {
 	mode = "title", --display the title screen
-	submode = nil, --e.g. mode=editor, submode=select-tile
+	submode = "obj-picker", --e.g. mode=editor, submode=select-tile
 	['key-repeat-timer'] = 0,
 	ui = {
 		cursors = {
@@ -132,6 +132,11 @@ function love.load()
  --  love.profiler.hookall("Lua")
  --  love.profiler.start()
 
+ 	love.graphics.clear()
+ 	local load = love.graphics.newImage("res/img/ui/loading.png")
+ 	love.graphics.draw(load,0,0,0, love.graphics.getWidth() / load:getWidth(), love.graphics.getHeight() / load:getHeight())
+ 	love.graphics.present()
+
 	if true or not love.filesystem.exists("settings.json") then --remove "true or" when releasing!
 		love.filesystem.write("settings.json", love.filesystem.read("default-settings.json"))
 	end
@@ -152,6 +157,18 @@ function love.load()
 			opacity = settings['graphics']['vignette'][3]
 		}
 	}
+
+	--finish setting up metadata table
+	for cat, tbl in pairs(metadata) do
+		for key, obj in pairs(tbl) do
+			instance = obj.class()
+			metadata[cat][key]["defaultImage"] = {
+				img = cache['img'][instance:getImgFile()],
+				quad = cache['sprites'][instance:getImg()]
+			}
+		end
+	end
+
 end
 
 function love.draw()
@@ -184,6 +201,11 @@ function love.draw()
 						love.graphics.setColor(0, 0, 0)
 					end
 				end
+			end
+
+			--overlay
+			if gameState['submode'] == 'obj-picker' then
+				love.graphics.rectangle("fill", 0, 0, camera.pWidth, 250)
 			end
 		end
 

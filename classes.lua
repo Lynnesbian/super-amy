@@ -179,7 +179,7 @@ function Entity:initialize(name, x, y, hitboxes)
 			self.lowestHitbox = hitbox
 		end
 	end
-	metadata['entities'][self.class.name] = self.class
+	metadata['entities'][self.class.name] = {class = self.class}
 end
 
 function Entity:isMovingLeft()
@@ -308,7 +308,7 @@ function Tile:initialize(name, bg, x, y, hitbox)
 	self.baseImg = nil
 	self.defaultHitbox = hitbox or getHitbox(0, 0, 32, 32)
 	self.hitbox = self.defaultHitbox
-	metadata['tiles'][self.class.name] = self.class
+	metadata['tiles'][self.class.name] = {class = self.class}
 	self.imgFile = "game/"..iif(bg, "backgrounds.png", "tiles.png")
 end
 function Tile:getQuad()
@@ -573,7 +573,7 @@ function Object:initialize(name, x, y, hitboxes, listeners)
 	self.imgFile = "game/objects.png"
 	self.states = {default={0}}
 	self.state = "default"
-	metadata['objects'][self.class.name] = self.class
+	metadata['objects'][self.class.name] = {class = self.class}
 end
 
 Music = class("Music")
