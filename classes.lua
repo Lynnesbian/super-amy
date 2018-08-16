@@ -40,11 +40,14 @@ states = {
 		self.height = height
 
 		for state, offset in pairs(self.states) do
-			if #offset == 1 then table.insert(offset, 0) end
+			if #offset == 1 then table.insert(offset, 0) end --if the provided offset is {1}, it should actually be {1, 0}
 			img = string.format("%s|%s|%s",self.imgFile, self.class.name, state)
 			if state == "default" then self.baseImg = img end
 			if cache['sprites'][img] == nil then
-				cache['sprites'][img] = love.graphics.newQuad((imgX+offset[1])*32, (imgY+offset[2])*32, width*32, height*32, cache['img'][self.imgFile]:getDimensions())
+				cache['sprites'][img] = love.graphics.newQuad((
+					imgX+offset[1])*32, (imgY+offset[2])*32,
+					width*32, height*32,
+					cache['img'][self.imgFile]:getDimensions())
 			end
 		end
 		self.img = self.baseImg
@@ -309,13 +312,6 @@ function Tile:initialize(name, bg, x, y, hitbox)
 end
 function Tile:getQuad()
 	return cache['sprites'][self.img]
-end
-function Tile:getImgFile()
-	if self.bg then
-		return "game/backgrounds.png"
-	else
-		return "game/tiles.png"
-	end
 end
 
 Hitbox = class("Hitbox")
