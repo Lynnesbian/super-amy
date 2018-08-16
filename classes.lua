@@ -285,6 +285,7 @@ function Entity:moveInDirection(direction, dt)
 	end
 end
 function Entity:jump()
+	--todo: variable jump strength
 	if self.grounded then
 		self.velocity['y'] = -8
 		if self.class.name == "nttAmy" then playSound("jump") end
