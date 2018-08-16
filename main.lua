@@ -80,7 +80,9 @@ gameState = {
 		activeTile = {
 			x = 0,
 			y = 0
-		}
+		},
+		objpage = "tiles",
+		objoffset = 0, --how many subpages the user has scrolled
 	}
 }
 
@@ -209,6 +211,13 @@ function love.draw()
 				love.graphics.rectangle("fill", 0, 0, camera.pWidth, 260)
 				love.graphics.setColor(0,0,0)
 				love.graphics.rectangle("fill", 0, 0, camera.pWidth, 250)
+				local offset = 32
+				love.graphics.setColor(1,1,1)
+				for key, obj in pairs(metadata[gameState['editor']['objpage']]) do
+					love.graphics.draw(obj['defaultImage']['img'], obj['defaultImage']['quad'], offset, 50, 0,2,2)
+					love.graphics.print(string.sub(key, 5), offset, 128)
+					offset = offset + 96
+				end
 			end
 		end
 
