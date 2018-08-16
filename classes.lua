@@ -304,7 +304,11 @@ Tile:include(getPosFunctions)
 --@param solid Whether or not the tile is solid. If it's not, entities will be able to pass through it.
 --@param bouncy Whether or not the tile causes entities to bounce off it
 --@param usesStates Does this tile have states to animate between?
---@todo penis
+--@param states A table of states to use
+--@param stateClusters Table of stateclusters
+--@param stateCluster The current statecluster
+--@param state The current state
+--@param hitbox The tile's hitbox
 function Tile:initialize(name, bg, x, y, hitbox)
 	self.name, self.bg, self.x, self.y = name, bg, x, y
 	self.solid = true

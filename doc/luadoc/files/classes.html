@@ -91,7 +91,7 @@
 <table class="function_list">
 
     <tr>
-    <td class="name" nowrap="nowrap"><a href="#Tile">Tile</a>&nbsp;(name, bg, x, y, hitbox, solid, bouncy, usesStates)</td>
+    <td class="name" nowrap="nowrap"><a href="#Tile">Tile</a>&nbsp;(name, bg, x, y, hitbox, solid, bouncy, usesStates, states, stateClusters, stateCluster, state)</td>
     <td class="summary">Parent class for all tiles </td>
     </tr>
 
@@ -113,7 +113,7 @@
 
 
 
-<dt><a name="Tile"></a><strong>Tile</strong>&nbsp;(name, bg, x, y, hitbox, solid, bouncy, usesStates)</dt>
+<dt><a name="Tile"></a><strong>Tile</strong>&nbsp;(name, bg, x, y, hitbox, solid, bouncy, usesStates, states, stateClusters, stateCluster, state)</dt>
 <dd>
 Parent class for all tiles
 
@@ -138,7 +138,7 @@ Parent class for all tiles
 	</li>
 	
 	<li>
-	  hitbox: 
+	  hitbox: The tile's hitbox
 	</li>
 	
 	<li>
@@ -151,6 +151,22 @@ Parent class for all tiles
 	
 	<li>
 	  usesStates: Does this tile have states to animate between?
+	</li>
+	
+	<li>
+	  states: A table of states to use
+	</li>
+	
+	<li>
+	  stateClusters: Table of stateclusters
+	</li>
+	
+	<li>
+	  stateCluster: The current statecluster
+	</li>
+	
+	<li>
+	  state: The current state
 	</li>
 	
 </ul>

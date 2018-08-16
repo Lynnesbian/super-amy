@@ -205,6 +205,9 @@ function love.draw()
 
 			--overlay
 			if gameState['submode'] == 'obj-picker' then
+				love.graphics.setColor(1,1,1)
+				love.graphics.rectangle("fill", 0, 0, camera.pWidth, 260)
+				love.graphics.setColor(0,0,0)
 				love.graphics.rectangle("fill", 0, 0, camera.pWidth, 250)
 			end
 		end
