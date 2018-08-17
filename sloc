@@ -1,4 +1,4 @@
 #!/usr/bin/env python3
 import subprocess, json
-output = json.loads(subprocess.check_output(["cloc", '.', '--json', '--exclude-dir' ,'nozip,lib', '--include-lang', 'Lua'],encoding="utf8"))
+output = json.loads(subprocess.check_output(["cloc", '.', '--json', '--quiet', '--exclude-dir' ,'nozip,lib', '--include-lang', 'Lua'],encoding="utf8"))
 print("You've written {} significant lines of Lua code across {} files!".format(output['SUM']['code'], output['SUM']['nFiles']))
