@@ -297,6 +297,7 @@ Tile:include(states)
 Tile:include(getPosFunctions)
 ---Parent class for all tiles
 --@name Tile
+--@type Class
 --@param name The name of the tile
 --@param bg Is this a background tile? (boolean)
 --@param x X coordinate
@@ -335,6 +336,12 @@ function Hitbox:initialize(xOffset, yOffset, width, height)
 	self.xOffset, self.yOffset, self.height, self.width = xOffset, yOffset, height, width
 end
 
+---A class that contains info about a game pack.
+--@name GamePack
+--@type Class
+--@param name The name of the pack
+--@param description A short description of the pack
+--@param acts A table of GameActs
 GamePack = class("GamePack")
 function GamePack:initialize(name, description, acts)
 	self.name = name or "Unnamed GamePack"
