@@ -1,5 +1,4 @@
-#!/bin/sh
-output=`cloc . --csv --exclude-dir nozip,lib --include-lang Lua`
-filecount=`echo $output|awk {'print $1'}`
-sloc=`echo $output|grep -oP "\\d* *\$"`
-echo You\'ve written $sloc significant lines of Lua code across $filecount files\!
+#!/usr/bin/env python3
+import subprocess, json
+output = json.loads(subprocess.check_output(["cloc", '.', '--json', '--exclude-dir' ,'nozip,lib', '--include-lang', 'Lua'],encoding="utf8"))
+print("You've written {} significant lines of Lua code across {} files!".format(output['SUM']['code'], output['SUM']['nFiles']))
