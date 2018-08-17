@@ -3,7 +3,10 @@
 local class = require("lib.middleclass.middleclass")
 --BASIC STUFF
 
-function shuffle(tbl) --https://gist.github.com/Uradamus/10323382
+--- Shuffles a table.
+--@param tbl The table to shuffle
+--@source https://gist.github.com/Uradamus/10323382
+function shuffle(tbl)
   size = #tbl
   for i = size, 1, -1 do
     local rand = math.random(size)
@@ -12,7 +15,10 @@ function shuffle(tbl) --https://gist.github.com/Uradamus/10323382
   return tbl
 end
  
-function reverse(tbl) --https://gist.github.com/balaam/3122129#gistcomment-1680319
+---Reverses a table.
+--@param tbl The table to reverse
+--@source https://gist.github.com/balaam/3122129#gistcomment-1680319
+function reverse(tbl)
   for i=1, math.floor(#tbl / 2) do
     local tmp = tbl[i]
     tbl[i] = tbl[#tbl - i + 1]
@@ -88,6 +94,11 @@ function round(x, multiple) --lua...
   return math.floor((x + multiple / 2) / multiple) * multiple
 end
 
+---Returns true if <tt>var</tt> is between <tt>lower</tt> and <tt>upper</tt>.
+--@param var The variable to check
+--@param lower The lower boundry
+--@param upper The upper boundry
+--@param inclusive If true, comparison will be inclusive
 function isBetween(var, lower, upper, inclusive)
 	if inclusive then
 		return var >= lower and var <= upper
@@ -96,9 +107,12 @@ function isBetween(var, lower, upper, inclusive)
 	end
 end
 
-function getAllInstancesOf(targetClass, array)
+---Returns a table of all the instances of <tt>targetClass</tt> within <tt>tbl</tt>.
+--@param targetClass The class to look for
+--@param tbl The table to search
+function getAllInstancesOf(targetClass, tbl)
   instances = {}
-  for k,obj in pairs(array) do
+  for k,obj in pairs(tbl) do
     if obj.class.name == targetClass.name or obj:isInstanceOf(targetClass) then table.insert(instances, obj) end
   end
   return instances

@@ -6,5 +6,5 @@ luadoc -d "$docdir" *.lua
 find . -type f -name "*.html" |
 while read f; do
 	echo "Minifying $f..."
-	html-minifier --removeComments --removeRedundantAttributes -o "$f" "$f"
+	html-minifier --collapse-whitespace --use-short-doctype --remove-comments --remove-redundant-attributes -o "$f" "$f"
 done
