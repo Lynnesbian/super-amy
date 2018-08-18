@@ -45,7 +45,7 @@ If you're just planning on playing the game, you don't need to worry about this 
 ### Super Amy
 The source code of this project, **not** including all music, sound effects, and graphics, and also **not** including the supplied libraries, is licenced under the [MPL 2.0](https://www.mozilla.org/media/MPL/2.0/index.txt) licence. The text of this licence is available in the "COPYING" file in the root directory of this project.
 
-The assets used in this project -- that is, the music, sound effects, and graphics, but **not** the supplied libraries, and **not** the source code -- are available under the [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) licence. The text of this licence is available in the "asset-licence.txt" file in the "res" directory of this project.
+The assets used in this project -- that is, the music, sound effects, and graphics, but **not** the supplied libraries, and **not** the source code -- are available under the [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) licence. The text of this licence is available in the "asset-licence.txt" file in the "res" directory of this project. This means that you can use them for whatever you want, including commercial applications, as long as you credit me.
 
 ![CC BY 4.0](https://licensebuttons.net/l/by/4.0/88x31.png "CC BY 4.0")
 
