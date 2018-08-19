@@ -2,12 +2,13 @@
 docdir="doc/luadoc"
 rm -rf "$docdir"
 mkdir "$docdir"
-echo "Generating docs..."
+#echo "Generating docs..."
 luadoc -d "$docdir" *.lua
 find . -type f -name "*.html" |
 while read f; do
-	echo "Minifying $f..."
+	#echo "Minifying $f..."
 	#html-minifier --collapse-whitespace --use-short-doctype --remove-comments --remove-redundant-attributes -o "$f" "$f"
 	#i liked html-minifier but boy was it slow. it took 4.4s to process the docs, whereas this script finishes in 0.09s
+	#read file|remove \n     strip comments             remove unneeded whitespace|replace doctype with smol html5 one          write to file
 	cat "$f" | tr  -d '\n' | perl -pe 's/<!--.*?-->//g' | perl -pe "s/\s\s+/ /g" | perl -pe "s/^.*?\.dtd\">/<!doctype html>/" | tee "$f" >/dev/null
 done
