@@ -8,5 +8,6 @@ find . -type f -name "*.html" |
 while read f; do
 	echo "Minifying $f..."
 	#html-minifier --collapse-whitespace --use-short-doctype --remove-comments --remove-redundant-attributes -o "$f" "$f"
-	 cat "$f" | tr  -d '\n' | perl -pe 's/<!--.*?-->//g' | perl -pe "s/\s\s+/ /g" | perl -pe "s/^.*?\.dtd\">/<!doctype html>/" | tee "$f" >/dev/null
+	#i liked html-minifier but boy was it slow. it took 4.4s to process the docs, whereas this script finishes in 0.09s
+	cat "$f" | tr  -d '\n' | perl -pe 's/<!--.*?-->//g' | perl -pe "s/\s\s+/ /g" | perl -pe "s/^.*?\.dtd\">/<!doctype html>/" | tee "$f" >/dev/null
 done
