@@ -118,6 +118,10 @@ function getAllInstancesOf(targetClass, tbl)
   return instances
 end
 
+---Returns true if <tt>tbl</tt> contains <tt>value</tt>.
+--@param tbl The table to check
+--@param value The value to check for
+--@return boolean
 function contains(tbl, value)
   for k, v in pairs(tbl) do
     if v == value then return true end
@@ -125,6 +129,10 @@ function contains(tbl, value)
   return false
 end
 
+---Searches <tt>tbl</tt> for <tt>value</tt> and returns its key.
+--@param tbl The table to search
+--@param value The value to check for
+--@return string
 function keyFromValue(tbl, value)
   for k,v in pairs(tbl) do
     if v == value then
@@ -166,6 +174,8 @@ function getHitbox(xOffset, yOffset, width, height)
   return cache['hitboxes'][string.format("%d,%d,%d,%d", xOffset, yOffset, width, height)]
 end
 
+---Plays a sound effect. Does not allow for the same sound effect to be played more than once at a time.
+--@param sfx The sound effect to play, e.g. "jump.ogg"
 function playSound(sfx)
   cache['sfx'][sfx]:play()
 end
