@@ -30,7 +30,7 @@ To edit the provided files, you'll need the following:
 - [GIMP](https://www.gimp.org/) v2.10 or later for the .xcf files in `res/img/xcf`
 - [DefleMask](http://www.deflemask.com/) for the .dmf files in `res/mus/dmf` and `res/sfx/dmf`
 
-To run <tt>generatedocs</tt>, you'll need [html-minifier](https://www.npmjs.com/package/html-minifier) and [LuaDoc](https://packages.debian.org/testing/luadoc).
+To run <tt>generatedocs</tt>, you'll need (among other standard \*nix utilities) [perl](https://www.perl.org/) and [LuaDoc](https://packages.debian.org/testing/luadoc).
 
 All of this software is available for Windows, Mac, and Linux, free of charge.
 
