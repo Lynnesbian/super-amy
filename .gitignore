@@ -3,3 +3,4 @@ super-amy.love
 push
 build
 itch
+*.sync-conflict*

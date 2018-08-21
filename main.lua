@@ -77,11 +77,14 @@ gameState = {
 		}
 	},
 	editor = {
-		activeTile = {
+		cursor = {
 			x = 0,
-			y = 0
+			y = 0,
+			action = nil,
+			placing = nil
 		},
 		objpage = "tiles",
+		objheight = 250, --size of the object bar on the top of the screen
 		objoffset = 0, --how many subpages the user has scrolled
 	}
 }
@@ -170,7 +173,15 @@ function love.load()
 			}
 		end
 	end
+end
 
+function love.mousepressed(x, y, button, touch, presses)
+	if contains({"ingame"}, gameState['mode']) then return end
+	if gameState['mode'] == 'editor' then
+		if gameState['submode'] == 'obj-picker' then
+
+		end
+	end
 end
 
 function love.draw()
@@ -196,8 +207,8 @@ function love.draw()
 				for y = 1, camera.pHeight + size, size do
 					love.graphics.rectangle("line", x - xOffset, y - yOffset, size, size)
 					if x <= m['x'] and x + size > m['x'] and y <= m['y'] and y + size > m['y'] then
-						gameState['editor']['activeTile']['x'] = round(x / size, 1)
-						gameState['editor']['activeTile']['y'] = round(y / size, 1)
+						gameState['editor']['cursor']['x'] = round(x / size, 1)
+						gameState['editor']['cursor']['y'] = round(y / size, 1)
 						love.graphics.setColor(1, 1, 1, 0.25)
 						love.graphics.rectangle("fill", x - xOffset, y - yOffset, size, size)
 						love.graphics.setColor(0, 0, 0)
@@ -208,14 +219,14 @@ function love.draw()
 			--overlay
 			if gameState['submode'] == 'obj-picker' then
 				love.graphics.setColor(1,1,1)
-				love.graphics.rectangle("fill", 0, 0, camera.pWidth, 260)
+				love.graphics.rectangle("fill", 0, 0, camera.pWidth, gameState['editor']['objheight'] + 5)
 				love.graphics.setColor(0,0,0)
-				love.graphics.rectangle("fill", 0, 0, camera.pWidth, 250)
+				love.graphics.rectangle("fill", 0, 0, camera.pWidth, gameState['editor']['objheight'])
 				local offset = 32
 				love.graphics.setColor(1,1,1)
 				for key, obj in pairs(metadata[gameState['editor']['objpage']]) do
 					love.graphics.draw(obj['defaultImage']['img'], obj['defaultImage']['quad'], offset, 50, 0,2,2)
-					love.graphics.print(string.sub(key, 5), offset, 128)
+					-- love.graphics.print(string.sub(key, 5), offset, 128)
 					offset = offset + 96
 				end
 			end
