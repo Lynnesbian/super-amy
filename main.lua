@@ -84,7 +84,7 @@ gameState = {
 			placing = nil
 		},
 		objpage = "tiles",
-		objheight = 250, --size of the object bar on the top of the screen
+		objheight = 150, --size of the object bar on the top of the screen
 		objoffset = 0, --how many subpages the user has scrolled
 	}
 }
@@ -178,8 +178,13 @@ end
 function love.mousepressed(x, y, button, touch, presses)
 	if contains({"ingame"}, gameState['mode']) then return end
 	if gameState['mode'] == 'editor' then
+		lvlInteract = true --assume the user is interacting with the level (e.g. placing an object)
 		if gameState['submode'] == 'obj-picker' then
-
+			if love.mouse.getY() < gameState['editor']['objheight'] then
+				--mouse is inside the object picker
+				lvlInteract = false
+				--get the clicked item, if any
+			end
 		end
 	end
 end
@@ -227,7 +232,7 @@ function love.draw()
 				for key, obj in pairs(metadata[gameState['editor']['objpage']]) do
 					love.graphics.draw(obj['defaultImage']['img'], obj['defaultImage']['quad'], offset, 50, 0,2,2)
 					-- love.graphics.print(string.sub(key, 5), offset, 128)
-					offset = offset + 96
+					offset = offset + (32*settings['graphics']['scale'])*2.5
 				end
 			end
 		end
